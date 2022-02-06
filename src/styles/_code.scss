@@ -1,0 +1,47 @@
+// keyword: const, return, etc.
+// operator: ==, >=, etc.
+// punctuation: (, ), [, ], etc.
+// parameter: inside function
+// tag: <html tag/>
+// function: object.fn
+// string, number: primitives
+
+.token {
+	color: var(--color-grey-0);
+}
+
+// .token.attr-name, .token.builtin, .token.char, .token.inserted, .token.selector, .token.string
+
+.token.builtin,
+.token.variable,
+.token.operator,
+.token.punctuation,
+.token.attr-name,
+.token.comment,
+.token.keyword,
+.token.important {
+	color: var(--color-grey-2);
+}
+
+.token.comment,
+.token.attr-name,
+.token.italic {
+	font-style: italic;
+}
+
+.token.bold {
+	font-weight: bold;
+}
+
+.token.function,
+.token.class-name {
+	color: var(--color-accent);
+}
+
+.token.selector,
+.token.tag,
+.token.attr-value,
+.token.string,
+.token.number {
+	color: var(--color-primary);
+}

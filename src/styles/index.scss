@@ -1,0 +1,27 @@
+$bace-colors: (
+	'grey-0': hsl(215, 35%, 98%),
+	'grey-1': hsl(215, 35%, 90%),
+	'grey-2': hsl(215, 35%, 70%),
+	'grey-3': hsl(215, 35%, 40%),
+	'grey-4': hsl(215, 35%, 15%),
+	'grey-5': hsl(215, 35%, 10%),
+	'primary': #a6e3c8,
+	'secondary': hsl(215, 35%, 15%),
+	'accent': #11bace,
+	'success-0': #a6e3c8,
+	'success-1': #3dc287,
+	'success-2': #257450,
+	'danger-0': #f7a1a1,
+	'danger-1': #ec1313,
+	'danger-2': #8d0c0c,
+	'warning-0': #ede7ab,
+	'warning-1': #d2c22d,
+	'warning-2': #7e741b,
+	'info-0': #a1ccf7,
+	'info-1': #1380ec,
+	'info-2': #0c4d8d
+);
+
+@import '../../node_modules/bace-css/bace.scss';
+@import 'global';
+@import 'code';
