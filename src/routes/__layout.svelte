@@ -1,6 +1,6 @@
 <script>
-	import Toast from '$lib/components/Toast.svelte';
-	import 'prismjs';
+	import Toast from '$lib/components/utilities/Toast.svelte';
+	import Prism from 'prismjs';
 	import '../styles/index.scss';
 </script>
 

@@ -1,5 +1,5 @@
 <script>
-	import AppFooter from '$lib/components/Footer.svelte';
+	import AppFooter from '$lib/components/structure/Footer.svelte';
 </script>
 
 <svelte:head>
