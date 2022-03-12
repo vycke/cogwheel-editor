@@ -1,5 +1,5 @@
 <script>
-	import { config } from '$lib/stores/config';
+	import { strConfig } from '$lib/stores/config';
 	import CodeHighlighter from './CodeHighlighter.svelte';
 	import { toast } from '$lib/stores/toast';
 	import Clipboard from '$lib/icons/Clipboard.svelte';
@@ -11,14 +11,14 @@
 			const _after = e.target.value.slice(e.target.selectionEnd, e.target.length);
 			const _pos = e.target.selectionEnd + 2;
 			e.target.value = _before + '  ' + _after;
-			config.set(_before + '  ' + _after);
+			strConfig.set(_before + '  ' + _after);
 			e.target.selectionStart = _pos;
 			e.target.selectionEnd = _pos;
 		}
 	}
 
 	async function handlyCopy() {
-		await navigator.clipboard.writeText($config);
+		await navigator.clipboard.writeText($strConfig);
 		toast.send({
 			type: 'OPENED',
 			payload: { label: 'Configuration copied to your clipboard!', type: 'info' }
@@ -28,7 +28,7 @@
 
 <div class="grid-1 flex-grow relative">
 	<button
-		on:click|preventDefault="{handlyCopy}"
+		on:click|preventDefault={handlyCopy}
 		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-3 py-1 border-grey-5"
 	>
 		<Clipboard />
@@ -36,11 +36,11 @@
 	<textarea
 		class="editor | monospace text-2 p-3 grid-row-1 grid-col-1 text-grey-0"
 		spellcheck="false"
-		bind:value="{$config}"
-		on:keydown="{checkTab}"
+		bind:value={$strConfig}
+		on:keydown={checkTab}
 	/>
 
-	<CodeHighlighter bind:value="{$config}" class="grid-row-1 grid-col-1 p-3" />
+	<CodeHighlighter bind:value={$strConfig} class="grid-row-1 grid-col-1 p-3" />
 </div>
 
 <style>

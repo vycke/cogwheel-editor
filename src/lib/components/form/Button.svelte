@@ -8,7 +8,7 @@
 <button
 	class="radius-4 px-4 transition-300 pointer {className} border-primary border-w-2"
 	{role}
-	data-type="{type}"
+	data-type={type}
 	on:click
 >
 	<slot />

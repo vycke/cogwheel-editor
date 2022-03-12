@@ -1,5 +1,5 @@
 <script>
-	import AppFooter from '$lib/components/structure/Footer.svelte';
+	import Footer from '$lib/components/structure/Footer.svelte';
 </script>
 
 <svelte:head>
@@ -14,5 +14,5 @@
 
 		<a href="/">Back to editor</a>
 	</div>
-	<AppFooter />
+	<Footer />
 </div>

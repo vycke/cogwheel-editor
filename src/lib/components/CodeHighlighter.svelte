@@ -6,7 +6,7 @@
 </script>
 
 <div class="viewer | {className}">
-	<pre aria-hidden="true" class="{className}"><code class="language-{language}"
+	<pre aria-hidden="true" class={className}><code class="language-{language}"
 			>{@html Prism.highlight(value, Prism.languages[language])}
     </code>
   </pre>
