@@ -12,12 +12,12 @@
 	import CodeEditor from '$lib/components/CodeEditor.svelte';
 	import Footer from '$lib/components/structure/Footer.svelte';
 	import TabContainer from '$lib/components/navigation/TabContainer.svelte';
-	import EventReplay from '$lib/components/EventReplay.svelte';
+	import SimulationLog from '$lib/components/SimulationLog.svelte';
 	import MermaidVisualizer from '$lib/components/MermaidVisualizer.svelte';
 
 	const items = [
 		{ label: 'editor', component: CodeEditor },
-		{ label: 'replay', component: EventReplay }
+		{ label: 'simulation', component: SimulationLog }
 	];
 </script>
 

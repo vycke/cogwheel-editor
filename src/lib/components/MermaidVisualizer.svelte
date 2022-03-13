@@ -10,6 +10,7 @@
 		mermaid.initialize({ theme: 'dark', themeVariables: { nodeBorder: '#00eace' } });
 		// Draw the mermaid definition
 		diagram.subscribe((def) => {
+			if (!def) return;
 			mermaid.render('mermaid', def, (svgCode) => {
 				if (!canvas) return;
 				canvas.innerHTML = svgCode;

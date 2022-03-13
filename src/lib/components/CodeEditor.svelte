@@ -1,5 +1,5 @@
 <script>
-	import { config } from '$lib/stores/config';
+	import { config, invalid } from '$lib/stores/config';
 	import { toast } from '$lib/stores/toast';
 	import Clipboard from '$lib/icons/Clipboard.svelte';
 
@@ -32,6 +32,11 @@
 	>
 		<Clipboard />
 	</button>
+	{#if $invalid}
+		<span class="absolute posb-0 posr-0 mb-1 mr-1 text-3 bg-danger-1 lh-3 radius-1 p-1">
+			Invalid configuration
+		</span>
+	{/if}
 	<textarea
 		class="editor | monospace text-2 p-3 grid-row-1 grid-col-1 text-grey-0"
 		spellcheck="false"

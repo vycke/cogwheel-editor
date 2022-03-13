@@ -37,6 +37,9 @@ export const diagram = derived(config, ($config, set) => {
 	if (mermaid.parse(syntax)) set(syntax);
 });
 
+// Store that shows if the config is invalid or not
+export const invalid = derived(config, ($config) => !strToConfig($config, false));
+
 // A derived store that maintains the current state and context given all known
 // events and the configuration
 export const context = derived([events, config], ([$events, $config], set) => {
@@ -47,11 +50,6 @@ export const context = derived([events, config], ([$events, $config], set) => {
 	}
 
 	const _machine = fsm(_config);
-	$events.forEach((e) => {
-		console.log(e);
-		_machine.send({ type: e });
-	});
-
-	console.log(_config, _machine);
+	$events.forEach((e) => _machine.send({ type: e }));
 	set({ current: _machine.current, context: _machine.context });
 });

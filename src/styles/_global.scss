@@ -1,6 +1,10 @@
 /*******
 * Generic styling
 *******/
+:root {
+	color-scheme: dark;
+}
+
 html,
 body {
 	color: var(--color-grey-0);

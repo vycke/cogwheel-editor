@@ -29,9 +29,9 @@
 	</button>
 
 	<ul role="list" class="flex-grow flex-col">
-		{#each $events as e}
+		{#each $events as e, i}
 			<div class="flex-row items-center gap-2 border-b-grey-4 py-2">
-				<span class="text-grey-3 uppercase text-2">event:</span>
+				<span class="text-grey-3 uppercase text-2">event {i + 1}:</span>
 				<span>{e}</span>
 			</div>
 		{/each}
