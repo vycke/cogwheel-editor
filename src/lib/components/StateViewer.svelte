@@ -11,6 +11,7 @@
 		// Draw the mermaid definition
 		diagram.subscribe((def) => {
 			mermaid.render('mermaid', def, (svgCode) => {
+				if (!canvas) return;
 				canvas.innerHTML = svgCode;
 			});
 		});
