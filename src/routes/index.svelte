@@ -14,6 +14,7 @@
 	import TabContainer from '$lib/components/navigation/TabContainer.svelte';
 	import SimulationLog from '$lib/components/SimulationLog.svelte';
 	import MermaidVisualizer from '$lib/components/MermaidVisualizer.svelte';
+	import CommandPalette from '$lib/components/CommandPalette.svelte';
 
 	const items = [
 		{ label: 'editor', component: CodeEditor },
@@ -28,7 +29,10 @@
 <MermaidVisualizer />
 
 <section class="sidebar | flex-col content-start p-3">
-	<TabContainer class="self-end" {items} />
+	<TabContainer class="self-end" {items}>
+		<CommandPalette slot="header" />
+	</TabContainer>
+
 	<Footer />
 </section>
 

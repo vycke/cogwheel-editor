@@ -6,19 +6,22 @@
 	let selected = items[0].label;
 </script>
 
-<ul role="list" class="flex-row mb-3 border-w-5 border-grey-5 bg-grey-5 radius-5 {className}">
-	{#each items as item}
-		<li>
-			<button
-				class:selected={selected === item.label}
-				class="item"
-				on:click={() => (selected = item.label)}
-			>
-				{item.label}
-			</button>
-		</li>
-	{/each}
-</ul>
+<div class="flex-row gap-1 items-center mb-3 {className}">
+	<slot name="header" />
+	<ul role="list" class="flex-row  border-w-5 border-grey-5 bg-grey-5 radius-5">
+		{#each items as item}
+			<li>
+				<button
+					class:selected={selected === item.label}
+					class="item"
+					on:click={() => (selected = item.label)}
+				>
+					{item.label}
+				</button>
+			</li>
+		{/each}
+	</ul>
+</div>
 
 <div class="flex-grow flex-col bg-grey-5 radius-3">
 	{#each items as item}
