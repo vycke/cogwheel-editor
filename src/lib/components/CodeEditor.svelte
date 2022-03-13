@@ -40,7 +40,12 @@
 		on:keydown={checkTab}
 	/>
 
-	<CodeHighlighter bind:value={$config} class="grid-row-1 grid-col-1 p-3" />
+	<div class="viewer | grid-row-1 grid-col-1 p-3">
+		<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-3"><code class="language-javascript"
+				>{@html Prism.highlight($config, Prism.languages.javascript)}
+			</code>
+		</pre>
+	</div>
 </div>
 
 <style>
@@ -64,5 +69,22 @@
 
 	.editor:focus {
 		outline: none;
+	}
+
+	.viewer {
+		position: relative;
+	}
+
+	pre > code {
+		font-size: var(--size-2);
+		font-family: var(--monospace);
+		tab-size: 2;
+	}
+
+	pre {
+		z-index: 0;
+		overflow: none;
+		height: 100%;
+		position: relative;
 	}
 </style>

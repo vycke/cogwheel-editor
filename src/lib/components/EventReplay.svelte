@@ -37,13 +37,13 @@
 		{/each}
 	</ul>
 
-	<div class="flex-row gap-3 items-center">
+	<div class="flex-row gap-3 items-stretch">
 		<input
 			bind:value={event}
 			placeholder={'e.g. TOGGLE'}
 			class="radius-3 p-1 bg-grey-4 text-grey-0 text-2 flex-grow border-grey-4 border-w-2"
 		/>
-		<Button class="text-2 p-1" on:click={addEvent}>+</Button>
+		<Button class="text-4" on:click={addEvent}>+</Button>
 	</div>
 </div>
 
