@@ -1,7 +1,9 @@
 <script context="module">
+	import { config } from '$lib/stores/config';
+	import { defaultStore } from '$lib/constants';
 	// Load the initial graph based on the URL, or the default configuration
 	export async function load({ url }) {
-		strConfig.set(atob(url?.hash.replace('#/', '')) || defaultStore);
+		config.set(atob(url?.hash.replace('#/', '')) || defaultStore);
 		return {};
 	}
 </script>
@@ -12,8 +14,6 @@
 	import TabContainer from '$lib/components/navigation/TabContainer.svelte';
 	import ReplaySection from '$lib/components/ReplaySection.svelte';
 	import StateViewer from '$lib/components/StateViewer.svelte';
-	import { strConfig } from '$lib/stores/config';
-	import { defaultStore } from '$lib/constants';
 
 	const items = [
 		{ label: 'editor', component: CodeEditor },

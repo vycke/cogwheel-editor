@@ -1,23 +1,31 @@
 <script>
 	import mermaid from 'mermaid';
 	import { onMount } from 'svelte';
-	import { mermaidDefinition } from '$lib/stores/config';
+	import { diagram, context } from '$lib/stores/config';
 
 	let canvas;
 
 	onMount(() => {
 		if (!canvas) return;
 		mermaid.initialize({ theme: 'dark', themeVariables: { nodeBorder: '#00eace' } });
-		mermaidDefinition.subscribe((def) => {
+		// Draw the mermaid definition
+		diagram.subscribe((def) => {
 			mermaid.render('mermaid', def, (svgCode) => {
 				canvas.innerHTML = svgCode;
+			});
+		});
+		// Update the visualization of the current state of the machine
+		context.subscribe((def) => {
+			document.querySelectorAll('g.nodes > *').forEach((n) => {
+				if (n.id.includes(`state-${def.current}-`)) n.dataset.selected = true;
+				else n.dataset.selected = false;
 			});
 		});
 	});
 </script>
 
 <div bind:this={canvas} class="h-full flex-row items-center justify-center p-3" />
-<!-- 
+
 <style>
 	:global(g[data-selected='true'] rect) {
 		fill: var(--color-primary) !important;
@@ -26,4 +34,4 @@
 	:global(g[data-selected='true'] span) {
 		color: var(--color-secondary) !important;
 	}
-</style> -->
+</style>

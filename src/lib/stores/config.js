@@ -1,20 +1,57 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 import mermaid from 'mermaid';
-import { configToMermaid, strToConfig } from '$lib/transform';
+import { strToConfig } from '$lib/transform';
+import { machine as fsm } from 'cogwheel';
 
-export const strConfig = writable('');
-export const machineConfig = writable({});
-export const mermaidDefinition = writable('');
+export const config = writable('');
+export const events = writable([]);
 
-strConfig.subscribe((str) => {
+// Set the URL to make the graph shareable
+config.subscribe((str) => {
 	window.location = `#/${btoa(str)}`;
-	try {
-		const _mermaidDefinition = configToMermaid(str);
-		if (mermaid.parse(_mermaidDefinition)) mermaidDefinition.set(_mermaidDefinition);
+});
 
-		const _config = strToConfig(str);
-		machineConfig.set(_config);
-	} catch (e) {
-		console.log(e);
+// Derived store used to create the mermaid definition
+export const diagram = derived(config, ($config, set) => {
+	let syntax = `stateDiagram-v2\n`;
+
+	if (!$config) {
+		set(syntax);
+		return;
 	}
+
+	// When the machine config is not valid, keep the old visualization
+	const _machine = strToConfig($config);
+	if (!_machine) return;
+
+	syntax += `[*] --> ${_machine.init}\n`;
+	Object.entries(_machine.states).forEach(([state, sDef]) => {
+		syntax += `${state}\n`;
+		Object.entries(sDef).forEach(([transition, tDef]) => {
+			if (transition === '_entry' || transition === '_exit') return;
+			if (typeof tDef === 'string') syntax += `${state} --> ${tDef}: ${transition}\n`;
+			else syntax += `${state} --> ${tDef.target}: ${transition}\n`;
+		});
+	});
+
+	if (mermaid.parse(syntax)) set(syntax);
+});
+
+// A derived store that maintains the current state and context given all known
+// events and the configuration
+export const context = derived([events, config], ([$events, $config], set) => {
+	const _config = strToConfig($config);
+	if (!_config) {
+		set({});
+		return;
+	}
+
+	const _machine = fsm(_config);
+	$events.forEach((e) => {
+		console.log(e);
+		_machine.send({ type: e });
+	});
+
+	console.log(_config, _machine);
+	set({ current: _machine.current, context: _machine.context });
 });
