@@ -1,21 +1,26 @@
-import { events } from './stores/config';
+import { config, diagram, events } from './stores/config';
+import { get } from 'svelte/store';
 import { modal } from './stores/modal';
 
 export const commands = [
 	{
-		key: 'E',
+		key: 'EVENT',
 		description: 'New simulation event: <name>',
 		cb: (e) => events.update((v) => [...v, e])
 	},
-	// { key: 'N', description: 'New node: <name>', cb: () => console.log('yay') },
-	// {
-	// 	key: 'T',
-	// 	description: 'New transition: <name> <source> <target>',
-	// 	cb: () => console.log('yay')
-	// },
 	{
-		key: 'C',
+		key: 'ESC',
 		description: 'ctrl + P',
 		cb: () => modal.send({ type: 'TOGGLE' })
+	},
+	{
+		key: 'MERMAID',
+		description: 'Copy mermaid config to clipboard',
+		cb: async () => await navigator.clipboard.writeText(get(diagram))
+	},
+	{
+		key: 'COPY',
+		description: 'Copy cogwheel config to clipboard',
+		cb: async () => await navigator.clipboard.writeText(get(config))
 	}
 ];

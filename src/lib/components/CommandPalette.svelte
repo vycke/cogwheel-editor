@@ -7,10 +7,13 @@
 	import { toast } from '$lib/stores/toast';
 
 	export let cmd = '';
-	$: cmds = commands.filter((c) => c.key.includes(cmd.split(':')[0]));
+	export let ref;
+	$: cmds = commands.filter((c) => c.key.includes(cmd.split(':')[0].toUpperCase()));
 
 	function toggle() {
+		cmd = '';
 		modal.send({ type: 'TOGGLE' });
+		if ($modal.state === 'visible') ref?.focus();
 	}
 
 	function execute(e) {
@@ -38,6 +41,7 @@
 	<div class="flex-col">
 		<input
 			bind:value={cmd}
+			bind:this={ref}
 			on:keypress={execute}
 			placeholder={'e.g. ADD new-node-name'}
 			class="radius-3 p-1 bg-grey-4 text-grey-0 text-2 flex-grow border-grey-4 border-w-2"
