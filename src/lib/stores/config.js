@@ -1,7 +1,14 @@
 import { writable, derived } from 'svelte/store';
 import mermaid from 'mermaid';
-import { strToConfig } from '$lib/transform';
 import { machine as fsm } from 'cogwheel';
+
+function strToConfig(str = '', def) {
+	try {
+		return eval('(' + str + ')');
+	} catch (e) {
+		return def;
+	}
+}
 
 export const config = writable('');
 export const events = writable([]);

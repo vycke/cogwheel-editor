@@ -6,7 +6,7 @@
 
 	let event = ``;
 
-	function addEvent(e) {
+	function addEvent() {
 		events.update((v) => [...v, event]);
 		event = '';
 	}
@@ -17,6 +17,10 @@
 			type: 'OPENED',
 			payload: { label: 'Events removed!', type: 'info' }
 		});
+	}
+
+	function execute(e) {
+		if (e.charCode === 13) addEvent();
 	}
 </script>
 
@@ -41,6 +45,7 @@
 		<input
 			bind:value={event}
 			placeholder={'e.g. TOGGLE'}
+			on:keypress={execute}
 			class="radius-3 p-1 bg-grey-4 text-grey-0 text-2 flex-grow border-grey-4 border-w-2"
 		/>
 		<Button class="text-4" on:click={addEvent}>+</Button>
