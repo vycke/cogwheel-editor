@@ -1,5 +1,14 @@
+<script context="module">
+	export async function load({ url }) {
+		return { props: { url } };
+	}
+</script>
+
 <script>
 	import Footer from '$lib/components/structure/Footer.svelte';
+	import { authExample, cacheExample, formExample } from '$lib/constants';
+
+	export let url;
 </script>
 
 <svelte:head>
@@ -10,9 +19,19 @@
 <div class="p-3 flex-col">
 	<div class="flex-grow bg-grey-5 radius-3 p-3">
 		<h1>About</h1>
-		<p>Cogwheel is a ....</p>
+		<p>
+			<a href="https://github.com/kevtiq/cogwheel">Cogwheel</a> is a small state management library
+			inspired by <a href="https://xstate.js.org/">XState</a>. This editor is small side-project to
+			enhance the developer experience of the cogwheel library, inspired by
+			<a href="https://stately.ai/">Stately.ai</a>.
+		</p>
 
-		<a href="/">Back to editor</a>
+		<h2 class="mt-3">Examples</h2>
+		<ul>
+			<li><a href="{url.origin}/#/{btoa(authExample)}">Authentication example</a></li>
+			<li><a href="{url.origin}/#/{btoa(formExample)}">Form example</a></li>
+			<li><a href="{url.origin}/#/{btoa(cacheExample)}">Caching + fetching example</a></li>
+		</ul>
 	</div>
 	<Footer />
 </div>
