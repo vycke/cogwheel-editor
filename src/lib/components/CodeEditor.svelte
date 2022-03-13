@@ -1,6 +1,5 @@
 <script>
 	import { config } from '$lib/stores/config';
-	import CodeHighlighter from './CodeHighlighter.svelte';
 	import { toast } from '$lib/stores/toast';
 	import Clipboard from '$lib/icons/Clipboard.svelte';
 
