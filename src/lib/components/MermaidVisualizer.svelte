@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import mermaid from 'mermaid';
 	import { onMount } from 'svelte';
 	import { diagram, context } from '$lib/stores/config';
@@ -11,7 +11,7 @@
 		// Draw the mermaid definition
 		diagram.subscribe((def) => {
 			if (!def) return;
-			mermaid.render('mermaid', def, (svgCode) => {
+			mermaid.render('mermaid', def as string, (svgCode) => {
 				if (!canvas) return;
 				canvas.innerHTML = svgCode;
 			});

@@ -1,5 +1,7 @@
 import { machineStore } from './utils';
 
+type Ctx = Record<string, never>;
+
 const config = {
 	init: 'invisible',
 	states: {
@@ -8,4 +10,4 @@ const config = {
 	}
 };
 
-export const modal = machineStore(config);
+export const modal = machineStore<Ctx>(config);

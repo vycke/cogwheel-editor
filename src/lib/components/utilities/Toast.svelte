@@ -1,12 +1,12 @@
-<script>
+<script lang="ts">
 	import { toast } from '$lib/stores/toast';
 </script>
 
 <div
-	class="toast | py-2 px-3 | bold lh-2 bg-{$toast.context.type || 'info'}-1 text-grey-0 radius-2"
+	class="toast | py-2 px-3 | bold lh-2 bg-{$toast.context.type}-1 text-grey-0 radius-2"
 	data-state={$toast.state}
 >
-	<span>{$toast.context?.label}</span>
+	<span>{$toast.context.label}</span>
 	<button on:click={() => toast.send({ type: 'CLOSED' })} class="ml-4 text-grey-0" data-type="link"
 		>x</button
 	>
