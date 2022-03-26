@@ -1,4 +1,4 @@
-export const defaultStore = `{
+export const defaultStore: string = `{
 	init: "visible",
 	states: {
 		visible: {
@@ -10,7 +10,7 @@ export const defaultStore = `{
 	}
 }`;
 
-export const authExample = `{
+export const authExample: string = `{
   init: 'not_authenticated',
   states: {
     not_authenticated: {
@@ -37,7 +37,7 @@ export const authExample = `{
   }
 }`;
 
-export const formExample = `{
+export const formExample: string = `{
   init: 'init',
   states: {
     init: {
@@ -63,7 +63,7 @@ export const formExample = `{
   }
 }`;
 
-export const cacheExample = `{
+export const cacheExample: string = `{
   init: 'idle',
   states: {
     idle: {

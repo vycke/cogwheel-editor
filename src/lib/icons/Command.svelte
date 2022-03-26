@@ -7,12 +7,12 @@
 
 <style>
 	svg {
-		color: var(--color-primary);
+		color: var(--color-grey-1);
 		height: var(--size-3);
 		transition: all 300ms;
 	}
 
 	svg:hover {
-		color: var(--color-accent);
+		color: var(--color-primary);
 	}
 </style>

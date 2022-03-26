@@ -28,9 +28,9 @@
 
 		<h2 class="mt-3">Examples</h2>
 		<ul>
-			<li><a href="{url.origin}/#/{btoa(authExample)}">Authentication example</a></li>
-			<li><a href="{url.origin}/#/{btoa(formExample)}">Form example</a></li>
-			<li><a href="{url.origin}/#/{btoa(cacheExample)}">Caching + fetching example</a></li>
+			<li><a href="{url.origin}/#/{window.btoa(authExample)}">Authentication example</a></li>
+			<li><a href="{url.origin}/#/{window.btoa(formExample)}">Form example</a></li>
+			<li><a href="{url.origin}/#/{window.btoa(cacheExample)}">Caching + fetching example</a></li>
 		</ul>
 	</div>
 	<Footer />

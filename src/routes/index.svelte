@@ -3,7 +3,7 @@
 	import { defaultStore } from '$lib/constants';
 	// Load the initial graph based on the URL, or the default configuration
 	export async function load({ url }) {
-		config.set(atob(url?.hash.replace('#/', '')) || defaultStore);
+		config.set(window.atob(url?.hash.replace('#/', '')) || defaultStore);
 		return {};
 	}
 </script>

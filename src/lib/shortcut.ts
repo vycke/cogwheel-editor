@@ -1,5 +1,10 @@
-export function shortcut(node, params) {
-	function handler(e) {
+export type ShortcutParam = {
+	key: string, 
+	callback: Function
+}
+
+export function shortcut(_, params: ShortcutParam): SvelteActionReturnType {
+	function handler(e: KeyboardEvent) {
 		if (e.ctrlKey && e.key === params.key) {
 			e.preventDefault();
 			params.callback();

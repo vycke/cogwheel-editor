@@ -2,12 +2,12 @@
 	import Command from '$lib/icons/Command.svelte';
 	import { modal } from '$lib/stores/modal';
 	import Modal from './utilities/Modal.svelte';
-	import { shortcut } from '$lib/shortcuts';
+	import { shortcut } from '$lib/shortcut';
 	import { commands } from '$lib/commands';
 	import { toast } from '$lib/stores/toast';
 
 	export let cmd = '';
-	export let ref;
+	let ref;
 	$: cmds = commands.filter((c) => c.key.includes(cmd.split(':')[0].toUpperCase()));
 
 	function toggle() {
@@ -20,7 +20,7 @@
 		if (e.charCode === 13) {
 			if (!cmds.length) return;
 			const [_, command] = cmd.split(':');
-			cmds[0].cb(command?.trim());
+			cmds[0].callback(command?.trim());
 			cmd = '';
 			toast.send({
 				type: 'OPENED',
@@ -31,7 +31,7 @@
 </script>
 
 <button
-	class="radius-1 bg-secondary color-primary pointer"
+	class="radius-1 bg-secondary"
 	on:click={toggle}
 	use:shortcut={{ key: 'p', callback: toggle }}
 >

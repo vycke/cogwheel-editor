@@ -2,7 +2,7 @@ import { writable, derived } from 'svelte/store';
 import mermaid from 'mermaid';
 import { machine as fsm } from 'cogwheel';
 
-function strToConfig(str = '', def) {
+function strToConfig(str = '', def = undefined) {
 	try {
 		return eval('(' + str + ')');
 	} catch (e) {
@@ -15,7 +15,7 @@ export const events = writable([]);
 
 // Set the URL to make the graph shareable
 config.subscribe((str) => {
-	window.location = `#/${btoa(str)}`;
+	window.location.href = `#/${window.btoa(str)}`;
 });
 
 // Derived store used to create the mermaid definition
