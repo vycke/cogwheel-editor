@@ -1,12 +1,11 @@
-import { config, diagram, events } from './stores/config';
-import { get } from 'svelte/store';
-import { modal } from './stores/modal';
+import { events } from '../simulation/simulation.store';
+import { modal } from './commands.store';
 
 export type Command = {
-	key: string,
-	description: string,
-	callback: Function
-}
+	key: string;
+	description: string;
+	callback: (str?: string) => void;
+};
 
 export const commands: Command[] = [
 	{
@@ -22,11 +21,11 @@ export const commands: Command[] = [
 	{
 		key: 'MERMAID',
 		description: 'Copy mermaid config to clipboard',
-		callback: async () => await navigator.clipboard.writeText(get(diagram))
+		callback: async () => await navigator.clipboard.writeText('')
 	},
 	{
 		key: 'COPY',
 		description: 'Copy cogwheel config to clipboard',
-		callback: async () => await navigator.clipboard.writeText(get(config))
+		callback: async () => await navigator.clipboard.writeText('')
 	}
 ];

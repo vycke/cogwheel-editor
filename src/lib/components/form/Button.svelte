@@ -1,8 +1,8 @@
 <script lang="ts">
-	let className = '';
+	let className: string = '';
 	export { className as class };
-	export let type = '';
-	export let role = 'button';
+	export let type: string = '';
+	export let role: string = 'button';
 </script>
 
 <button

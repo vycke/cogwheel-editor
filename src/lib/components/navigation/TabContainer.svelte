@@ -1,9 +1,15 @@
 <script lang="ts">
-	let className = '';
+	import type { SvelteComponent } from 'svelte';
 
+	type Item = {
+		label: string;
+		component: typeof SvelteComponent;
+	};
+
+	let className: string = '';
 	export { className as class };
-	export let items = [];
-	let selected = items[0].label;
+	export let items: Item[] = [];
+	let selected: string = items[0].label;
 </script>
 
 <div class="flex-row gap-1 items-center mb-3 {className}">

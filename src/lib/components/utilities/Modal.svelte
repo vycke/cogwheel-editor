@@ -1,18 +1,19 @@
 <script lang="ts">
-	import Close from '$lib/icons/Close.svelte';
-	import { modal } from '$lib/stores/modal';
-	export let title = '';
+	import type { MachineStore } from '$lib/helpers/stateMachineStore';
+
+	export let store: MachineStore<any>;
+	export let title: string = '';
 </script>
 
-{#if $modal.state === 'visible'}
-	<div class="dimmer" on:click|stopPropagation={() => modal.send({ type: 'TOGGLE' })} />
+{#if $store.state === 'visible'}
+	<div class="dimmer" on:click|stopPropagation={() => store.send({ type: 'TOGGLE' })} />
 {/if}
 
-<div class="modal | bg-grey-5 border-grey-5 border-w-3 radius-3" data-state={$modal.state}>
+<div class="modal | bg-grey-5 border-grey-5 border-w-3 radius-3" data-state={$store.state}>
 	<div class="flex-row items-center | bold">
 		{#if title}
 			<span class="flex-grow">{title}</span>
-			<button on:click={() => modal.send({ type: 'TOGGLE' })} data-type="styleless">
+			<button on:click={() => store.send({ type: 'TOGGLE' })} data-type="styleless">
 				<svg
 					aria-hidden="true"
 					focusable="false"

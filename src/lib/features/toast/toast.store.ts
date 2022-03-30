@@ -1,12 +1,13 @@
 import { send, assign } from 'cogwheel';
-import { machineStore } from './utils';
+import { machineStore } from '$lib/helpers/stateMachineStore';
+import type { MachineConfig } from 'cogwheel/dist/types';
 
-type Ctx = {
+export type Ctx = {
 	label: string;
 	type: 'info' | 'warning' | 'danger' | 'success';
 }
 
-const config = {
+const config: MachineConfig<Ctx> = {
 	init: 'invisible',
 	states: {
 		visible: {
@@ -22,3 +23,4 @@ const config = {
 };
 
 export const toast = machineStore<Ctx>(config);
+

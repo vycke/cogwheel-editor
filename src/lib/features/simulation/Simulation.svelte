@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Button from './form/Button.svelte';
-	import { events } from '$lib/stores/config';
-	import { toast } from '$lib/stores/toast';
+	import Button from '$lib/components/form/Button.svelte';
+	import { events } from './simulation.store';
+	import { openToast } from '$lib/features/toast/toast.actions';
 
 	let event = ``;
 
@@ -12,10 +12,7 @@
 
 	function handleReset() {
 		events.set([]);
-		toast.send({
-			type: 'OPENED',
-			payload: { label: 'Events removed!', type: 'info' }
-		});
+		openToast('Events removed!');
 	}
 
 	function execute(e) {

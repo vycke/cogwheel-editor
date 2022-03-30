@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { config, invalid } from '$lib/stores/config';
-	import { toast } from '$lib/stores/toast';
+	import { editorStore as store } from './editor.store';
+	import { openToast } from '../toast/toast.actions';
+	import Prism from '$lib/helpers/prism';
+	import { updateText } from './editor.actions';
 
 	function checkTab(e) {
 		if (e.key == 'Tab') {
@@ -9,18 +11,19 @@
 			const _after = e.target.value.slice(e.target.selectionEnd, e.target.length);
 			const _pos = e.target.selectionEnd + 2;
 			e.target.value = _before + '  ' + _after;
-			config.set(_before + '  ' + _after);
+			updateText(_before + '  ' + _after);
 			e.target.selectionStart = _pos;
 			e.target.selectionEnd = _pos;
 		}
 	}
 
+	// Reactive updated to the store.
+	export let text = $store.context.text;
+	$: updateText(text);
+
 	async function handlyCopy() {
-		await navigator.clipboard.writeText($config);
-		toast.send({
-			type: 'OPENED',
-			payload: { label: 'Configuration copied to your clipboard!', type: 'info' }
-		});
+		await navigator.clipboard.writeText($store.context.text);
+		openToast('Configuration copied to your clipboard!');
 	}
 </script>
 
@@ -36,7 +39,7 @@
 			/>
 		</svg>
 	</button>
-	{#if $invalid}
+	{#if $store.state === 'invalid'}
 		<span class="absolute posb-0 posr-0 mb-1 mr-1 text-3 bg-danger-1 lh-3 radius-1 p-1">
 			Invalid configuration
 		</span>
@@ -44,13 +47,13 @@
 	<textarea
 		class="editor | monospace text-2 p-3 grid-row-1 grid-col-1 text-grey-0"
 		spellcheck="false"
-		bind:value={$config}
+		bind:value={text}
 		on:keydown={checkTab}
 	/>
 
 	<div class="viewer | grid-row-1 grid-col-1 p-3">
 		<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-3"><code class="language-javascript"
-				>{@html Prism.highlight($config, Prism.languages.javascript, 'javascript')}
+				>{@html Prism.highlight($store.context.text, Prism.languages.javascript, 'javascript')}
 			</code>
 		</pre>
 	</div>

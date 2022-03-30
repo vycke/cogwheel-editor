@@ -1,24 +1,14 @@
-<script context="module">
-	import { config } from '$lib/stores/config';
-	import { defaultStore } from '$lib/constants';
-	// Load the initial graph based on the URL, or the default configuration
-	export async function load({ url }) {
-		config.set(window.atob(url?.hash.replace('#/', '')) || defaultStore);
-		return {};
-	}
-</script>
-
 <script>
-	import CodeEditor from '$lib/components/CodeEditor.svelte';
+	import Editor from '$lib/features/editor/Editor.svelte';
 	import Footer from '$lib/components/structure/Footer.svelte';
 	import TabContainer from '$lib/components/navigation/TabContainer.svelte';
-	import SimulationLog from '$lib/components/SimulationLog.svelte';
-	import MermaidVisualizer from '$lib/components/MermaidVisualizer.svelte';
-	import CommandPalette from '$lib/components/CommandPalette.svelte';
+	import Simulation from '$lib/features/simulation/Simulation.svelte';
+	import Visualizer from '$lib/features/visualizer/Visualizer.svelte';
+	import CommandPalette from '$lib/features/commands/CommandPalette.svelte';
 
-	const items = [
-		{ label: 'editor', component: CodeEditor },
-		{ label: 'simulation', component: SimulationLog }
+	let items = [
+		{ label: 'editor', component: Editor },
+		{ label: 'simulation', component: Simulation }
 	];
 </script>
 
@@ -26,7 +16,7 @@
 	<title>Cogwheel editor</title>
 </svelte:head>
 
-<MermaidVisualizer />
+<Visualizer />
 
 <section class="sidebar | flex-col content-start p-3">
 	<TabContainer class="self-end" {items}>

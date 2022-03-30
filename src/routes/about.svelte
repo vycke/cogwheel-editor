@@ -1,14 +1,14 @@
-<script context="module">
+<script context="module" lang="ts">
 	export async function load({ url }) {
 		return { props: { url } };
 	}
 </script>
 
-<script>
+<script lang="ts">
 	import Footer from '$lib/components/structure/Footer.svelte';
 	import { authExample, cacheExample, formExample } from '$lib/constants';
 
-	export let url;
+	export let url: URL;
 </script>
 
 <svelte:head>

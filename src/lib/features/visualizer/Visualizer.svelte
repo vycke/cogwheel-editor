@@ -1,7 +1,8 @@
 <script lang="ts">
 	import mermaid from 'mermaid';
 	import { onMount } from 'svelte';
-	import { diagram, context } from '$lib/stores/config';
+	import { simulated } from '../simulation/simulation.store';
+	import { diagram } from './visualizer.store';
 
 	let canvas;
 
@@ -17,10 +18,10 @@
 			});
 		});
 		// Update the visualization of the current state of the machine
-		context.subscribe((def) => {
-			document.querySelectorAll('g.nodes > *').forEach((n) => {
-				if (n.id.includes(`state-${def.current}-`)) n.dataset.selected = true;
-				else n.dataset.selected = false;
+		simulated.subscribe((def) => {
+			document.querySelectorAll('g.nodes > *').forEach((n: HTMLElement) => {
+				if (n.id.includes(`state-${def.current}-`)) n.dataset.selected = 'true';
+				else n.dataset.selected = 'false';
 			});
 		});
 	});

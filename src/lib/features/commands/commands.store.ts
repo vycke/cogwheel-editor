@@ -1,4 +1,4 @@
-import { machineStore } from './utils';
+import { machineStore } from '$lib/helpers/stateMachineStore';
 
 type Ctx = Record<string, never>;
 

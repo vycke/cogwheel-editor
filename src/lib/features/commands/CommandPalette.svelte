@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { modal } from '$lib/stores/modal';
-	import Modal from './utilities/Modal.svelte';
-	import { shortcut } from '$lib/shortcut';
-	import { commands } from '$lib/commands';
-	import { toast } from '$lib/stores/toast';
+	import { modal } from './commands.store';
+	import { commands } from './commands';
+	import Modal from '$lib/components/utilities/Modal.svelte';
+	import { shortcut } from '$lib/helpers/shortcut';
+	import { openToast } from '$lib/features/toast/toast.actions';
 
 	export let cmd = '';
 	let ref;
@@ -21,10 +21,7 @@
 			const [_, command] = cmd.split(':');
 			cmds[0].callback(command?.trim());
 			cmd = '';
-			toast.send({
-				type: 'OPENED',
-				payload: { label: 'Command executed', type: 'info' }
-			});
+			openToast('Command executed');
 		}
 	}
 </script>
@@ -41,7 +38,7 @@
 		/>
 	</svg>
 </button>
-<Modal>
+<Modal store={modal}>
 	<div class="flex-col">
 		<input
 			bind:value={cmd}

@@ -1,6 +1,6 @@
 export type ShortcutParam = {
 	key: string, 
-	callback: Function
+	callback: () => void
 }
 
 export function shortcut(_, params: ShortcutParam): SvelteActionReturnType {

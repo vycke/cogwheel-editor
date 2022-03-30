@@ -1,7 +1,7 @@
 <script>
-	import Toast from '$lib/components/utilities/Toast.svelte';
+	import Toast from '$lib/features/toast/Toast.svelte';
 	// required to ensure prism is correct attached to the Window;
-	import Prism from 'prismjs';
+	import '$lib/helpers/prism';
 	import '../styles/index.scss';
 </script>
 
