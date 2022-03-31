@@ -4,7 +4,7 @@
 	import TabContainer from '$lib/components/navigation/TabContainer.svelte';
 	import Simulation from '$lib/features/simulation/Simulation.svelte';
 	import Visualizer from '$lib/features/visualizer/Visualizer.svelte';
-	import CommandPalette from '$lib/features/commands/CommandPalette.svelte';
+	import Commands from '$lib/features/commands/Commands.svelte';
 
 	let items = [
 		{ label: 'editor', component: Editor },
@@ -20,7 +20,7 @@
 
 <section class="sidebar | flex-col content-start p-3">
 	<TabContainer class="self-end" {items}>
-		<CommandPalette slot="header" />
+		<Commands slot="header" />
 	</TabContainer>
 
 	<Footer />

@@ -1,5 +1,4 @@
 import { events } from '../simulation/simulation.store';
-import { modal } from './commands.store';
 
 export type Command = {
 	key: string;
@@ -12,11 +11,6 @@ export const commands: Command[] = [
 		key: 'EVENT',
 		description: 'New simulation event: <name>',
 		callback: (e: string) => events.update((v: string[]) => [...v, e])
-	},
-	{
-		key: 'ESC',
-		description: 'ctrl + P',
-		callback: () => modal.send({ type: 'TOGGLE' })
 	},
 	{
 		key: 'MERMAID',

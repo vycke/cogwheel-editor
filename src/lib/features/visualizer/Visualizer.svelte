@@ -4,7 +4,7 @@
 	import { simulated } from '../simulation/simulation.store';
 	import { diagram } from './visualizer.store';
 
-	let canvas;
+	let canvas: HTMLElement;
 
 	onMount(() => {
 		if (!canvas) return;

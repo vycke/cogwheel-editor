@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { MachineStore } from '$lib/helpers/stateMachineStore';
+	import type { VisibilityStore } from '$lib/helpers/visibilityStore';
 
-	export let store: MachineStore<any>;
+	export let store: VisibilityStore;
 	export let title: string = '';
 </script>
 

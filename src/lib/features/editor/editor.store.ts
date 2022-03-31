@@ -27,7 +27,7 @@ function updateText(_s, ctx: EditorCtx, p: string) {
 
 // update URL based on text
 function updateUrl(_s, ctx: EditorCtx) {
-	window.location.href = `#/${window.btoa(ctx.text)}`;
+	window.location.hash = `#/${window.btoa(ctx.text)}`;
 }
 
 // Validate if config is valid or not.
@@ -81,7 +81,7 @@ const config: MachineConfig<EditorCtx> = {
 			FINISHED: 'valid',
 			_entry: [replaceConfig, updateUrl, autoTransition('FINISHED')]
 		},
-		invalid: { TEXT_CHANGED: 'updatedText' }
+		invalid: { TEXT_CHANGED: 'updateText' }
 	}
 };
 

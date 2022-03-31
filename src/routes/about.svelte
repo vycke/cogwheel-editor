@@ -1,14 +1,6 @@
-<script context="module" lang="ts">
-	export async function load({ url }) {
-		return { props: { url } };
-	}
-</script>
-
 <script lang="ts">
 	import Footer from '$lib/components/structure/Footer.svelte';
 	import { authExample, cacheExample, formExample } from '$lib/constants';
-
-	export let url: URL;
 </script>
 
 <svelte:head>
@@ -28,9 +20,11 @@
 
 		<h2 class="mt-3">Examples</h2>
 		<ul>
-			<li><a href="{url.origin}/#/{window.btoa(authExample)}">Authentication example</a></li>
-			<li><a href="{url.origin}/#/{window.btoa(formExample)}">Form example</a></li>
-			<li><a href="{url.origin}/#/{window.btoa(cacheExample)}">Caching + fetching example</a></li>
+			<li><a href="/#/{window.btoa(authExample)}" target="_blank">Authentication example</a></li>
+			<li><a href="/#/{window.btoa(formExample)}" target="_blank">Form example</a></li>
+			<li>
+				<a href="/#/{window.btoa(cacheExample)}" target="_blank">Caching + fetching example</a>
+			</li>
 		</ul>
 	</div>
 	<Footer />

@@ -1,22 +1,24 @@
 <script lang="ts">
-	import { modal } from './commands.store';
 	import { commands } from './commands';
 	import Modal from '$lib/components/utilities/Modal.svelte';
 	import { shortcut } from '$lib/helpers/shortcut';
 	import { openToast } from '$lib/features/toast/toast.actions';
+	import { createVisibilityStore } from '$lib/helpers/visibilityStore';
+
+	let modal = createVisibilityStore('invisible');
 
 	export let cmd = '';
-	let ref;
+	let ref: HTMLElement;
 	$: cmds = commands.filter((c) => c.key.includes(cmd.split(':')[0].toUpperCase()));
 
 	function toggle() {
 		cmd = '';
 		modal.send({ type: 'TOGGLE' });
-		if ($modal.state === 'visible') ref?.focus();
+		if ($modal.state === 'visible') ref.focus();
 	}
 
-	function execute(e) {
-		if (e.charCode === 13) {
+	function execute(e: KeyboardEvent) {
+		if (e.key === 'Enter') {
 			if (!cmds.length) return;
 			const [_, command] = cmd.split(':');
 			cmds[0].callback(command?.trim());

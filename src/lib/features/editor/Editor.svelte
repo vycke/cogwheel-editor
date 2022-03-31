@@ -2,18 +2,20 @@
 	import { editorStore as store } from './editor.store';
 	import { openToast } from '../toast/toast.actions';
 	import Prism from '$lib/helpers/prism';
-	import { updateText } from './editor.actions';
+	import { updateText, resetState } from './editor.actions';
+	import { onMount } from 'svelte';
 
-	function checkTab(e) {
+	function checkTab(e: KeyboardEvent) {
 		if (e.key == 'Tab') {
+			const _e = e.target as HTMLTextAreaElement;
 			e.preventDefault();
-			const _before = e.target.value.slice(0, e.target.selectionStart);
-			const _after = e.target.value.slice(e.target.selectionEnd, e.target.length);
-			const _pos = e.target.selectionEnd + 2;
-			e.target.value = _before + '  ' + _after;
+			const _before = _e.value.slice(0, _e.selectionStart);
+			const _after = _e.value.slice(_e.selectionEnd, _e.value.length);
+			const _pos = _e.selectionEnd + 2;
+			_e.value = _before + '  ' + _after;
 			updateText(_before + '  ' + _after);
-			e.target.selectionStart = _pos;
-			e.target.selectionEnd = _pos;
+			_e.selectionStart = _pos;
+			_e.selectionEnd = _pos;
 		}
 	}
 
@@ -27,7 +29,7 @@
 	}
 </script>
 
-<div class="grid-1 flex-grow relative">
+<div class="wrapper | grid-1 flex-grow relative">
 	<button
 		on:click|preventDefault={handlyCopy}
 		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-3 py-1 border-grey-5"
@@ -69,6 +71,10 @@
 
 	svg {
 		height: var(--size-3);
+	}
+
+	.wrapper {
+		overflow-x: auto;
 	}
 
 	.editor {
