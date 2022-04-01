@@ -1,12 +1,13 @@
 import { derived } from 'svelte/store';
 import mermaid from 'mermaid';
-import { editorStore } from '../editor/editor.store';
+import { editorStore, type EditorCtx } from '../editor/editor.store';
 import type { Transition } from 'cogwheel/dist/types';
+import type { MachineStore } from '$lib/helpers/stateMachineStore';
 
 type Ctx = Record<string, never>;
 
 // Derived store used to create the mermaid definition
-export const diagram = derived(editorStore, ($store, set) => {
+export const diagram = derived<MachineStore<EditorCtx>, string>(editorStore, ($store, set) => {
 	let syntax = `stateDiagram-v2\n`;
 
 	// When the machine config is not valid, keep the old visualization

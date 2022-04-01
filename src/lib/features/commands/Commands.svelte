@@ -3,27 +3,25 @@
 	import Modal from '$lib/components/utilities/Modal.svelte';
 	import { shortcut } from '$lib/helpers/shortcut';
 	import { openToast } from '$lib/features/toast/toast.actions';
-	import { createVisibilityStore } from '$lib/helpers/visibilityStore';
-
-	let modal = createVisibilityStore('invisible');
+	import { modal } from './modal.store';
+	import { togglePalette } from './commands.actions';
 
 	export let cmd = '';
 	let ref: HTMLElement;
-	$: cmds = commands.filter((c) => c.key.includes(cmd.split(':')[0].toUpperCase()));
+	$: cmds = commands.filter((c) => c.key.includes(cmd.split(' ')[0].toLowerCase()));
 
 	function toggle() {
 		cmd = '';
-		modal.send({ type: 'TOGGLE' });
+		togglePalette();
 		if ($modal.state === 'visible') ref.focus();
 	}
 
 	function execute(e: KeyboardEvent) {
 		if (e.key === 'Enter') {
 			if (!cmds.length) return;
-			const [_, command] = cmd.split(':');
-			cmds[0].callback(command?.trim());
+			const [_, ...command] = cmd.split(' ');
+			cmds[0].callback(command.join(' ')?.trim());
 			cmd = '';
-			openToast('Command executed');
 		}
 	}
 </script>
@@ -52,7 +50,7 @@
 		<ul role="list">
 			{#each cmds as command}
 				<li class="flex-row items-center p-1 border-b-grey-4 gap-1">
-					<span class="text-3">{command.key}:</span>
+					<span class="text-2">{command.key}:</span>
 					<span class="text-grey-3 text-2">{command.description}</span>
 				</li>
 			{/each}

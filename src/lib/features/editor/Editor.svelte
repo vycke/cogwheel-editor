@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { editorStore as store } from './editor.store';
-	import { openToast } from '../toast/toast.actions';
 	import Prism from '$lib/helpers/prism';
-	import { updateText, resetState } from './editor.actions';
-	import { onMount } from 'svelte';
+	import { updateText } from './editor.actions';
+	import { copyConfig } from '../commands/commands.actions';
 
 	function checkTab(e: KeyboardEvent) {
 		if (e.key == 'Tab') {
@@ -22,16 +21,11 @@
 	// Reactive updated to the store.
 	export let text = $store.context.text;
 	$: updateText(text);
-
-	async function handlyCopy() {
-		await navigator.clipboard.writeText($store.context.text);
-		openToast('Configuration copied to your clipboard!');
-	}
 </script>
 
 <div class="wrapper | grid-1 flex-grow relative">
 	<button
-		on:click|preventDefault={handlyCopy}
+		on:click|preventDefault={copyConfig}
 		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-3 py-1 border-grey-5"
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

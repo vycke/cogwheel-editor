@@ -14,6 +14,13 @@ type vPayload = {
 	config: MachineConfig<O>;
 };
 
+type ePayload = {
+	type: 'node' | 'transition';
+	label?: string;
+	source?: string;
+	target?: string;
+};
+
 // initiatize the machine based on URL
 function initialize() {
 	const text = window.atob(window.location?.hash.replace('#/', '')) || defaultStore;
@@ -46,14 +53,34 @@ function replaceConfig(_s, ctx: EditorCtx, payload: vPayload) {
 	return assign({ ...ctx, config: payload.config });
 }
 
-// TODO configToText converter
-function replaceText(_s: string, ctx: EditorCtx) {
-	return assign({ ...ctx });
+function addElement(_s, ctx: EditorCtx, payload: ePayload) {
+	const config = { ...ctx.config };
+	if (payload.type === 'node') {
+		config.states[payload.label] = {};
+	} else if (payload.type === 'transition') {
+		if (!config.states[payload.source]) config.states[payload.source] = {};
+		config.states[payload.source][payload.label] = payload.target;
+	}
+	return assign({ ...ctx, config });
 }
 
-// TODO configToText converter
-function addElement(_s, ctx: EditorCtx) {
-	return assign({ ...ctx });
+function replaceText(_s: string, ctx: EditorCtx) {
+	let text = '{\n';
+
+	if (ctx.config.init) text += `\tinit: "${ctx.config.init}",\n\tstates: {\n`;
+	if (ctx.config.states) {
+		Object.entries(ctx.config.states).forEach(([k, v]) => {
+			text += `\t\t${k}: {\n`;
+			Object.entries(v).forEach(([s, t]) => {
+				text += `\t\t\t${s}: "${t}",\n`;
+			});
+			text += `\t\t},\n`;
+		});
+
+		text += '\t}\n';
+	}
+	text += '}';
+	return assign({ ...ctx, text });
 }
 
 // auto transition after previous action is executed
@@ -67,7 +94,7 @@ const config: MachineConfig<EditorCtx> = {
 	init: 'init',
 	states: {
 		init: { LOADED: 'valid', _entry: [initialize, autoTransition('LOADED')] },
-		valid: { NEW_ELEMENT: 'addElement', TEXT_CHANGED: 'updateText' },
+		valid: { ADD_ELEMENT: 'addElement', TEXT_CHANGED: 'updateText' },
 		addElement: {
 			FINISHED: 'valid',
 			_entry: [addElement, replaceText, updateUrl, autoTransition('FINISHED')]
