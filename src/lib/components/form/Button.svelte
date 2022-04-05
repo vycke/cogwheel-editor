@@ -6,7 +6,7 @@
 </script>
 
 <button
-	class="radius-4 px-4 transition-300 pointer {className} border-primary border-w-2"
+	class="radius-1 px-1 transition-300 pointer {className} border-primary border-w-00"
 	{role}
 	data-type={type}
 	on:click

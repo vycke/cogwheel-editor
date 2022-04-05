@@ -855,11 +855,6 @@ babel-plugin-dynamic-import-node@^2.3.3:
   dependencies:
     object.assign "^4.1.0"
 
-bace-css@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/bace-css/-/bace-css-1.3.0.tgz#7019a9f3bbd5da5e42b1877c1042557d8b622950"
-  integrity sha512-fII2WUa0kDwxsL+rkzSdMSNFD6kROoZkP1T3+ilv1+ngcTcTj2WeZgIg9wRM66JXz8ibUEYrj/2AZdb2NWnqtw==
-
 balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
@@ -1976,6 +1971,11 @@ fd-slicer@~1.1.0:
   integrity sha1-JcfInLH5B3+IkbvmHY85Dq4lbx4=
   dependencies:
     pend "~1.2.0"
+
+feo-css@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/feo-css/-/feo-css-2.0.0.tgz#64c0ee5d39fe811f9d77c754390a5d2f23ae756b"
+  integrity sha512-W+A41oRBdXa3I/HEQXBwh+strArhdLoWd+Yz+vA/zGQgUZd+uqrqwy6MnDcX7apF55NITMYLK/D8iMbRkbnMKA==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"

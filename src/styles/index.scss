@@ -1,4 +1,4 @@
-$bace-colors: (
+$feo-colors: (
 	'grey-0': hsl(215, 35%, 98%),
 	'grey-1': hsl(215, 35%, 90%),
 	'grey-2': hsl(215, 35%, 70%),
@@ -22,7 +22,7 @@ $bace-colors: (
 	'info-2': #0c4d8d
 );
 
-@import '../../node_modules/bace-css/bace.scss';
+@import '../../node_modules/feo-css/feo.scss';
 @import 'global';
 @import 'code';
 

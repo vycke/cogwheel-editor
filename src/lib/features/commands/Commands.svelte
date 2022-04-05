@@ -45,13 +45,13 @@
 			bind:this={ref}
 			on:keypress={execute}
 			placeholder={'e.g. ADD new-node-name'}
-			class="radius-3 p-1 bg-grey-4 text-grey-0 text-2 flex-grow border-grey-4 border-w-2"
+			class="radius-0 p-000 bg-grey-4 text-grey-0 text-00 flex-grow border-grey-4 border-w-2"
 		/>
-		<ul role="list">
+		<ul class="list">
 			{#each cmds as command}
-				<li class="flex-row items-center p-1 border-b-grey-4 gap-1">
-					<span class="text-2">{command.key}:</span>
-					<span class="text-grey-3 text-2">{command.description}</span>
+				<li class="flex-row items-center p-000 border-b-grey-4 gap-000">
+					<span class="text-00">{command.key}:</span>
+					<span class="text-grey-3 text-00">{command.description}</span>
 				</li>
 			{/each}
 		</ul>
@@ -74,7 +74,7 @@
 
 	svg {
 		color: var(--color-grey-1);
-		height: var(--size-3);
+		height: var(--size-0);
 		transition: all 300ms;
 	}
 

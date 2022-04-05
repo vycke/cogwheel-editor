@@ -12,9 +12,9 @@
 	let selected: string = items[0].label;
 </script>
 
-<div class="flex-row gap-1 items-center mb-3 {className}">
+<div class="flex-row gap-000 items-center mb-0 {className}">
 	<slot name="header" />
-	<ul role="list" class="flex-row  border-w-5 border-grey-5 bg-grey-5 radius-5">
+	<ul class="flex-row border-w-5 border-grey-5 bg-grey-5 radius-2">
 		{#each items as item}
 			<li>
 				<button
@@ -29,7 +29,7 @@
 	</ul>
 </div>
 
-<div class="flex-grow flex-col bg-grey-5 radius-3">
+<div class="flex-grow flex-col bg-grey-5 radius-0">
 	{#each items as item}
 		{#if item.label === selected}
 			<svelte:component this={item.component} />
@@ -39,10 +39,10 @@
 
 <style>
 	.item {
-		padding: var(--size-0) var(--size-4);
+		padding: var(--size-none) var(--size-1);
 		cursor: pointer;
 		background: transparent;
-		border-radius: var(--size-3);
+		border-radius: var(--size-0);
 		color: var(--color-grey-0);
 		transition: var(--transition-300);
 		text-transform: capitalize;

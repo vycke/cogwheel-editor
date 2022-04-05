@@ -18,7 +18,7 @@
 
 <Visualizer />
 
-<section class="sidebar | flex-col content-start p-3">
+<section class="sidebar | flex-col content-start p-0">
 	<TabContainer class="self-end" {items}>
 		<Commands slot="header" />
 	</TabContainer>

@@ -7,9 +7,9 @@
 	<title>About cogwheel editor</title>
 </svelte:head>
 
-<div class="p-3" />
-<div class="p-3 flex-col">
-	<div class="flex-grow bg-grey-5 radius-3 p-3">
+<div class="p-0" />
+<div class="p-0 flex-col">
+	<div class="flex-grow bg-grey-5 radius-0 p-0">
 		<h1>About</h1>
 		<p>
 			<a href="https://github.com/kevtiq/cogwheel">Cogwheel</a> is a small state management library
@@ -18,7 +18,7 @@
 			<a href="https://stately.ai/">Stately.ai</a>.
 		</p>
 
-		<h2 class="mt-3">Examples</h2>
+		<h2 class="mt-0">Examples</h2>
 		<ul>
 			<li><a href="/#/{window.btoa(authExample)}" target="_blank">Authentication example</a></li>
 			<li><a href="/#/{window.btoa(formExample)}" target="_blank">Form example</a></li>

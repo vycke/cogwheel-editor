@@ -20,10 +20,10 @@
 	}
 </script>
 
-<div class="wrapper | p-3 flex-col relative">
+<div class="wrapper | p-0 flex-col relative">
 	<button
 		on:click|preventDefault={handleReset}
-		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-3 py-1 border-grey-5"
+		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-0 py-000 border-grey-5"
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
 			<path
@@ -33,23 +33,23 @@
 		</svg>
 	</button>
 
-	<ul role="list" class="flex-grow flex-col">
+	<ul class="flex-grow flex-col">
 		{#each $events as e, i}
-			<div class="flex-row items-center gap-2 border-b-grey-4 py-2">
-				<span class="text-grey-3 uppercase text-2">event {i + 1}:</span>
+			<div class="flex-row items-center gap-00 border-b-grey-4 py-00">
+				<span class="text-grey-3 uppercase text-00">event {i + 1}:</span>
 				<span>{e}</span>
 			</div>
 		{/each}
 	</ul>
 
-	<div class="flex-row gap-3 items-stretch">
+	<div class="flex-row gap-0 items-stretch">
 		<input
 			bind:value={event}
 			placeholder={'e.g. TOGGLE'}
 			on:keypress={execute}
-			class="radius-3 p-1 bg-grey-4 text-grey-0 text-2 flex-grow border-grey-4 border-w-2"
+			class="radius-3 p-000 bg-grey-4 text-grey-0 text-00 flex-grow border-grey-4 border-w-2"
 		/>
-		<Button class="text-4" on:click={addEvent}>+</Button>
+		<Button class="text-1" on:click={addEvent}>+</Button>
 	</div>
 </div>
 
@@ -57,12 +57,12 @@
 	button {
 		cursor: pointer;
 		z-index: 2;
-		border-bottom-left-radius: var(--size-3);
-		border-top-right-radius: var(--size-3);
+		border-bottom-left-radius: var(--size-0);
+		border-top-right-radius: var(--size-0);
 	}
 
 	svg {
-		height: var(--size-3);
+		height: var(--size-0);
 	}
 
 	.wrapper {

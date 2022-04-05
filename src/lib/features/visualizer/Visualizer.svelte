@@ -27,7 +27,7 @@
 	});
 </script>
 
-<div bind:this={canvas} class="h-full flex-row items-center justify-center p-3" />
+<div bind:this={canvas} class="h-full flex-row items-center justify-center p-0" />
 
 <style>
 	:global(g[data-selected='true'] rect) {

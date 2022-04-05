@@ -5,7 +5,7 @@
 	import '../styles/index.scss';
 </script>
 
-<main class="flex-grow sidebar-r sidebar-w-5 gap-3">
+<main class="flex-grow sidebar-r sidebar-w-2 gap-0">
 	<slot />
 </main>
 

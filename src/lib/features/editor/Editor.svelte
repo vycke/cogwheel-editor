@@ -26,7 +26,7 @@
 <div class="wrapper | grid-1 flex-grow relative">
 	<button
 		on:click|preventDefault={copyConfig}
-		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-3 py-1 border-grey-5"
+		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-0 py-000 border-grey-5"
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 			<path
@@ -36,19 +36,19 @@
 		</svg>
 	</button>
 	{#if $store.state === 'invalid'}
-		<span class="absolute posb-0 posr-0 mb-1 mr-1 text-3 bg-danger-1 lh-3 radius-1 p-1">
+		<span class="absolute posb-0 posr-0 mb-000 mr-000 text-0 bg-danger-1 lh-0 radius-1 p-000">
 			Invalid configuration
 		</span>
 	{/if}
 	<textarea
-		class="editor | monospace text-2 p-3 grid-row-1 grid-col-1 text-grey-0"
+		class="editor | monospace text-00 p-0 grid-row-1 grid-col-1 text-grey-0"
 		spellcheck="false"
 		bind:value={text}
 		on:keydown={checkTab}
 	/>
 
-	<div class="viewer | grid-row-1 grid-col-1 p-3">
-		<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-3"><code class="language-javascript"
+	<div class="viewer | grid-row-1 grid-col-1 p-0">
+		<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
 				>{@html Prism.highlight($store.context.text, Prism.languages.javascript, 'javascript')}
 			</code>
 		</pre>
@@ -59,12 +59,12 @@
 	button {
 		cursor: pointer;
 		z-index: 2;
-		border-bottom-left-radius: var(--size-3);
-		border-top-right-radius: var(--size-3);
+		border-bottom-left-radius: var(--size-0);
+		border-top-right-radius: var(--size-0);
 	}
 
 	svg {
-		height: var(--size-3);
+		height: var(--size-0);
 	}
 
 	.wrapper {
@@ -91,7 +91,7 @@
 	}
 
 	pre > code {
-		font-size: var(--size-2);
+		font-size: var(--size-00);
 		font-family: var(--monospace);
 		tab-size: 2;
 	}

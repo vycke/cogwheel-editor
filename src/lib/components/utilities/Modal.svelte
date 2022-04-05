@@ -9,7 +9,7 @@
 	<div class="dimmer" on:click|stopPropagation={() => store.send({ type: 'TOGGLE' })} />
 {/if}
 
-<div class="modal | bg-grey-5 border-grey-5 border-w-3 radius-3" data-state={$store.state}>
+<div class="modal | bg-grey-5 border-grey-5 border-w-3 radius-0" data-state={$store.state}>
 	<div class="flex-row items-center | bold">
 		{#if title}
 			<span class="flex-grow">{title}</span>
@@ -45,7 +45,7 @@
 	.modal {
 		position: fixed;
 		top: 2rem;
-		min-width: var(--bp-4);
+		min-width: var(--bp-1);
 		left: 50%;
 		transform: translateX(-50%);
 		z-index: 999;

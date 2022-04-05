@@ -3,11 +3,11 @@
 </script>
 
 <div
-	class="toast | py-2 px-3 | bold lh-2 bg-{$toast.context.type}-1 text-grey-0 radius-2"
+	class="toast | py-00 px-0 | bold lh-00 bg-{$toast.context.type}-1 text-grey-0 radius-00"
 	data-state={$toast.state}
 >
 	<span>{$toast.context.label}</span>
-	<button on:click={() => toast.send({ type: 'CLOSED' })} class="ml-4 text-grey-0" data-type="link"
+	<button on:click={() => toast.send({ type: 'CLOSED' })} class="ml-1 text-grey-0" data-type="link"
 		>x</button
 	>
 </div>
