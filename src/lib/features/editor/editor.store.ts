@@ -1,6 +1,6 @@
 import { assign, machine, send } from 'cogwheel';
 import { machineStore } from '$lib/helpers/stateMachineStore';
-import type { MachineConfig } from 'cogwheel/dist/types';
+import type { MachineConfig, MachineState } from 'cogwheel/dist/types';
 import { defaultStore } from '$lib/constants';
 
 type O = { [key: string]: unknown };
@@ -28,19 +28,19 @@ function initialize() {
 }
 
 // update text based on input
-function updateText(_s, ctx: EditorCtx, p: string) {
-	return assign({ ...ctx, text: p });
+function updateText(state: MachineState<EditorCtx>, p: string) {
+	return assign({ ...state.context, text: p });
 }
 
 // update URL based on text
-function updateUrl(_s, ctx: EditorCtx) {
-	window.location.hash = `#/${window.btoa(ctx.text)}`;
+function updateUrl(state: MachineState<EditorCtx>) {
+	window.location.hash = `#/${window.btoa(state.context.text)}`;
 }
 
 // Validate if config is valid or not.
-function validate(_s, ctx: EditorCtx) {
+function validate(state: MachineState<EditorCtx>) {
 	try {
-		const config = eval('(' + ctx.text + ')');
+		const config = eval('(' + state.context.text + ')');
 		machine(config);
 		return send({ type: 'VALIDATED', payload: { config } });
 	} catch (e) {
@@ -49,27 +49,27 @@ function validate(_s, ctx: EditorCtx) {
 }
 
 // replace config based on the text (converted in previous step )
-function replaceConfig(_s, ctx: EditorCtx, payload: vPayload) {
-	return assign({ ...ctx, config: payload.config });
+function replaceConfig(state: MachineState<EditorCtx>, payload: vPayload) {
+	return assign({ ...state.context, config: payload.config });
 }
 
-function addElement(_s, ctx: EditorCtx, payload: ePayload) {
-	const config = { ...ctx.config };
+function addElement(state: MachineState<EditorCtx>, payload: ePayload) {
+	const config = { ...state.context.config };
 	if (payload.type === 'node') {
 		config.states[payload.label] = {};
 	} else if (payload.type === 'transition') {
 		if (!config.states[payload.source]) config.states[payload.source] = {};
 		config.states[payload.source][payload.label] = payload.target;
 	}
-	return assign({ ...ctx, config });
+	return assign({ ...state.context, config });
 }
 
-function replaceText(_s: string, ctx: EditorCtx) {
+function replaceText(state: MachineState<EditorCtx>) {
 	let text = '{\n';
 
-	if (ctx.config.init) text += `\tinit: "${ctx.config.init}",\n\tstates: {\n`;
-	if (ctx.config.states) {
-		Object.entries(ctx.config.states).forEach(([k, v]) => {
+	if (state.context.config.init) text += `\tinit: "${state.context.config.init}",\n\tstates: {\n`;
+	if (state.context.config.states) {
+		Object.entries(state.context.config.states).forEach(([k, v]) => {
 			text += `\t\t${k}: {\n`;
 			Object.entries(v).forEach(([s, t]) => {
 				text += `\t\t\t${s}: "${t}",\n`;
@@ -80,7 +80,7 @@ function replaceText(_s: string, ctx: EditorCtx) {
 		text += '\t}\n';
 	}
 	text += '}';
-	return assign({ ...ctx, text });
+	return assign({ ...state.context, text });
 }
 
 // auto transition after previous action is executed

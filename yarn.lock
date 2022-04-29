@@ -946,10 +946,10 @@ chalk@^4.0.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-cogwheel@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/cogwheel/-/cogwheel-1.3.1.tgz#6635ee067b3dd0fcb076d52359ce877062d31fac"
-  integrity sha512-qWMDvALA91TOrCze+y6XjTxD5K6hOMlIHcPKahSo0de8hLr3BfBpGlVP1yldr30RsRyvjDCSelimkHcG92pn8w==
+cogwheel@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/cogwheel/-/cogwheel-2.0.0.tgz#303e92ea1824c2de65f328212751525e722a38d2"
+  integrity sha512-72XY3p/4QIF2CHvT1wk5Lq3rEkA6wWZr1CMW0A60HPjwSxob22rD7sIstALSZweicf3E8nOWPFMRYGspOgs+ew==
 
 color-convert@^1.9.0:
   version "1.9.3"

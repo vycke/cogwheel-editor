@@ -5,9 +5,11 @@
 	import Simulation from '$lib/features/simulation/Simulation.svelte';
 	import Visualizer from '$lib/features/visualizer/Visualizer.svelte';
 	import Commands from '$lib/features/commands/Commands.svelte';
+	import TestOverview from '$lib/features/tests/TestOverview.svelte';
 
 	let items = [
 		{ label: 'editor', component: Editor },
+		{ label: 'tests', component: TestOverview },
 		{ label: 'simulation', component: Simulation }
 	];
 </script>

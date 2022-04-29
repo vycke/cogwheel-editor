@@ -1,25 +1,22 @@
+$_h: 215;
+$_s: 20%;
+
 $feo-colors: (
-	'grey-0': hsl(215, 35%, 98%),
-	'grey-1': hsl(215, 35%, 90%),
-	'grey-2': hsl(215, 35%, 70%),
-	'grey-3': hsl(215, 35%, 40%),
-	'grey-4': hsl(215, 35%, 15%),
-	'grey-5': hsl(215, 35%, 10%),
-	'primary': #00eace,
-	'secondary': hsl(215, 35%, 15%),
-	'accent': #00bace,
-	'success-0': #a6e3c8,
-	'success-1': #3dc287,
-	'success-2': #257450,
-	'danger-0': #f7a1a1,
-	'danger-1': #ec1313,
-	'danger-2': #8d0c0c,
-	'warning-0': #ede7ab,
-	'warning-1': #d2c22d,
-	'warning-2': #7e741b,
-	'info-0': #a1ccf7,
-	'info-1': #1380ec,
-	'info-2': #0c4d8d
+  // grey-scale
+  'grey-0': hsl($_h, $_s, 98%),
+  'grey-1': hsl($_h, $_s, 90%),
+  'grey-2': hsl($_h, $_s, 70%),
+  'grey-3': hsl($_h, $_s, 40%),
+  'grey-4': hsl($_h, $_s, 20%),
+  'grey-5': hsl($_h, $_s, 10%),
+  // BRAND COLORS
+  'primary': #88C0C0,
+  'secondary': #2C5353,
+  'accent': #9B9DBF,
+	'info': #6699CC,
+	'success': #7AB89D,
+	'warning': #EBCB8B,
+	'danger': #BF616A
 );
 
 @import '../../node_modules/feo-css/feo.scss';

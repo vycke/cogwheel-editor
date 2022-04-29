@@ -1,3 +1,5 @@
+import { get } from 'svelte/store';
+import { toast } from '../toast/toast.store';
 import { editorStore } from './editor.store';
 
 export function updateText(text: string) {
@@ -19,4 +21,9 @@ export function addTransition(str = '') {
 		type: 'ADD_ELEMENT',
 		payload: { type: 'transition', source, target, label }
 	});
+}
+
+export async function copyConfig() {
+	await navigator.clipboard.writeText(get(editorStore).context.text);
+	toast.info('Configuration copied to your clipboard!');
 }

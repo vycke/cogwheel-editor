@@ -1,14 +1,16 @@
 <script>
-	import { toast } from '$lib/features/toast/toast.store';
+	import { toastStore } from '$lib/features/toast/toast.store';
 </script>
 
 <div
-	class="toast | py-00 px-0 | bold lh-00 bg-{$toast.context.type}-1 text-grey-0 radius-00"
-	data-state={$toast.state}
+	class="toast | py-00 px-0 | bold lh-00 bg-{$toastStore.context.type} text-grey-0 radius-00"
+	data-state={$toastStore.state}
 >
-	<span>{$toast.context.label}</span>
-	<button on:click={() => toast.send({ type: 'CLOSED' })} class="ml-1 text-grey-0" data-type="link"
-		>x</button
+	<span>{$toastStore.context.label}</span>
+	<button
+		on:click={() => toastStore.send({ type: 'CLOSED' })}
+		class="ml-1 text-grey-0"
+		data-type="link">x</button
 	>
 </div>
 

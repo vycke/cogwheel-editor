@@ -21,8 +21,9 @@ export function machineStore<T extends O>(config: MachineConfig<T>): MachineStor
 	const machine = fsm(config);
 	const store: Writable<Store<T>> = writable({ state: machine.current, context: machine.context });
 
-	machine.listen((state, context) => {
-		store.update(() => ({ state, context }));
+	machine.listen(({ current, context }) => {
+		console.log({ current, context });
+		store.update(() => ({ state: current, context }));
 	});
 
 	return { subscribe: store.subscribe, send: machine.send };

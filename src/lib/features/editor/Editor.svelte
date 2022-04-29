@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { editorStore as store } from './editor.store';
 	import Prism from '$lib/helpers/prism';
-	import { updateText } from './editor.actions';
-	import { copyConfig } from '../commands/commands.actions';
+	import { copyConfig, updateText } from './editor.actions';
 
 	function checkTab(e: KeyboardEvent) {
 		if (e.key == 'Tab') {

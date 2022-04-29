@@ -2,7 +2,6 @@
 	import { commands } from './commands';
 	import Modal from '$lib/components/utilities/Modal.svelte';
 	import { shortcut } from '$lib/helpers/shortcut';
-	import { openToast } from '$lib/features/toast/toast.actions';
 	import { modal } from './modal.store';
 	import { togglePalette } from './commands.actions';
 
@@ -26,11 +25,7 @@
 	}
 </script>
 
-<button
-	class="radius-1 bg-secondary"
-	on:click={toggle}
-	use:shortcut={{ key: 'p', callback: toggle }}
->
+<button class="radius-1 bg-grey-4" on:click={toggle} use:shortcut={{ key: 'p', callback: toggle }}>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
 		<path
 			fill="currentColor"

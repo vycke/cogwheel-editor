@@ -1,5 +1,5 @@
-import { addNode, addTransition } from '../editor/editor.actions';
-import { togglePalette, copyConfig, copyMermaid } from './commands.actions';
+import { addNode, addTransition, copyConfig } from '../editor/editor.actions';
+import { togglePalette, copyMermaid } from './commands.actions';
 
 export type Command = {
 	key: string;

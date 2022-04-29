@@ -8,10 +8,11 @@
 
 	onMount(() => {
 		if (!canvas) return;
-		mermaid.initialize({ theme: 'dark', themeVariables: { nodeBorder: '#00eace' } });
+		mermaid.initialize({ theme: 'dark', themeVariables: { nodeBorder: '#88c0c0' } });
 		// Draw the mermaid definition
 		diagram.subscribe((def) => {
 			if (!def) return;
+
 			mermaid.render('mermaid', def as string, (svgCode) => {
 				if (!canvas) return;
 				canvas.innerHTML = svgCode;
