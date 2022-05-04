@@ -1,5 +1,7 @@
-import { addNode, addTransition, copyConfig } from '../editor/editor.actions';
-import { togglePalette, copyMermaid } from './commands.actions';
+import { addNode, addTransition, copyConfig } from '../editor/editor.store';
+import { copyTests } from '../tests/tests.store';
+import { copyMermaid } from '../visualizer/visualizer.store';
+import { togglePalette } from './modal.store';
 
 export type Command = {
 	key: string;
@@ -32,5 +34,10 @@ export const commands: Command[] = [
 		key: 'copy',
 		description: 'copy cogwheel config to clipboard',
 		callback: copyConfig
+	},
+	{
+		key: 'tests',
+		description: 'copy test configuration to clipboard',
+		callback: copyTests
 	}
 ];

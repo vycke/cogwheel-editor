@@ -1,8 +1,9 @@
-import { derived } from 'svelte/store';
+import { derived, get } from 'svelte/store';
 import mermaid from 'mermaid';
 import { editorStore, type EditorCtx } from '../editor/editor.store';
 import type { Transition } from 'cogwheel/dist/types';
 import type { MachineStore } from '$lib/helpers/stateMachineStore';
+import { toast } from '../toast/toast.store';
 
 type Ctx = Record<string, never>;
 
@@ -26,3 +27,8 @@ export const diagram = derived<MachineStore<EditorCtx>, string>(editorStore, ($s
 
 	if (mermaid.parse(syntax)) set(syntax);
 });
+
+export async function copyMermaid() {
+	await navigator.clipboard.writeText(get(diagram));
+	toast.info('Mermaid definition copied to your clipboard!');
+}

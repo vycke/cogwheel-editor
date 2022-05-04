@@ -1,8 +1,9 @@
-import { derived } from 'svelte/store';
+import { derived, get } from 'svelte/store';
 import { editorStore, type EditorCtx } from '../editor/editor.store';
 import type { MachineStore } from '$lib/helpers/stateMachineStore';
 import { machine } from 'cogwheel';
 import type { MachineConfig, O, Transition } from 'cogwheel/dist/types';
+import { toast } from '../toast/toast.store';
 
 // DFS algorithm to find all paths based on transition names. Once a state
 // is reached that is already covered, the path finishes.
@@ -57,3 +58,8 @@ export const tests = derived<MachineStore<EditorCtx>, string>(editorStore, ($sto
 
 	set(syntax);
 });
+
+export async function copyTests() {
+	await navigator.clipboard.writeText(get(tests));
+	toast.info('Tests copied to your clipboard!');
+}

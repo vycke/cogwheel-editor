@@ -2,6 +2,8 @@ import { assign, machine, send } from 'cogwheel';
 import { machineStore } from '$lib/helpers/stateMachineStore';
 import type { MachineConfig, MachineState } from 'cogwheel/dist/types';
 import { defaultStore } from '$lib/constants';
+import { toast } from '../toast/toast.store';
+import { get } from 'svelte/store';
 
 type O = { [key: string]: unknown };
 
@@ -28,7 +30,7 @@ function initialize() {
 }
 
 // update text based on input
-function updateText(state: MachineState<EditorCtx>, p: string) {
+function _updateText(state: MachineState<EditorCtx>, p: string) {
 	return assign({ ...state.context, text: p });
 }
 
@@ -102,7 +104,7 @@ const config: MachineConfig<EditorCtx> = {
 		updateText: {
 			VALIDATED: 'replaceConfig',
 			INVALIDATED: 'invalid',
-			_entry: [updateText, validate]
+			_entry: [_updateText, validate]
 		},
 		replaceConfig: {
 			FINISHED: 'valid',
@@ -113,3 +115,29 @@ const config: MachineConfig<EditorCtx> = {
 };
 
 export const editorStore = machineStore<EditorCtx>(config);
+
+export function updateText(text: string) {
+	editorStore.send({ type: 'TEXT_CHANGED', payload: text });
+}
+
+// used for commands
+export function addNode(label = '') {
+	editorStore.send({ type: 'ADD_ELEMENT', payload: { type: 'node', label } });
+}
+
+// Used for commands
+export function addTransition(str = '') {
+	const tokens = str.split(' ');
+	if (tokens.length < 3) return;
+	const [source, target, label] = tokens;
+
+	editorStore.send({
+		type: 'ADD_ELEMENT',
+		payload: { type: 'transition', source, target, label }
+	});
+}
+
+export async function copyConfig() {
+	await navigator.clipboard.writeText(get(editorStore).context.text);
+	toast.info('Configuration copied to your clipboard!');
+}

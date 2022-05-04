@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { tests as store } from './tests.store';
+	import { copyTests, tests as store } from './tests.store';
 	import Prism from '$lib/helpers/prism';
-	import { copyTests } from './tests.actions';
 </script>
 
 <div class="grid-1 flex-grow relative">

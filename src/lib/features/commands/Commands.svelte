@@ -2,8 +2,7 @@
 	import { commands } from './commands';
 	import Modal from '$lib/components/utilities/Modal.svelte';
 	import { shortcut } from '$lib/helpers/shortcut';
-	import { modal } from './modal.store';
-	import { togglePalette } from './commands.actions';
+	import { modal, togglePalette } from './modal.store';
 
 	export let cmd = '';
 	let ref: HTMLElement;
