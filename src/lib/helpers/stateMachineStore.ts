@@ -22,7 +22,6 @@ export function machineStore<T extends O>(config: MachineConfig<T>): MachineStor
 	const store: Writable<Store<T>> = writable({ state: machine.current, context: machine.context });
 
 	machine.listen(({ current, context }) => {
-		console.log({ current, context });
 		store.update(() => ({ state: current, context }));
 	});
 

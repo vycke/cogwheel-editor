@@ -1,3 +1,4 @@
+
 $_h: 215;
 $_s: 20%;
 
@@ -10,13 +11,13 @@ $feo-colors: (
   'grey-4': hsl($_h, $_s, 20%),
   'grey-5': hsl($_h, $_s, 10%),
   // BRAND COLORS
-  'primary': #88C0C0,
-  'secondary': #2C5353,
-  'accent': #9B9DBF,
-	'info': #6699CC,
-	'success': #7AB89D,
+  'primary': #1395ae,
+  'accent': #8C90CE,
+  // FUNCTIONAL COLORS
+	'info': #3380CC,
+	'success': #5EBA8C,
 	'warning': #EBCB8B,
-	'danger': #BF616A
+	'danger': #C75963
 );
 
 @import '../../node_modules/feo-css/feo.scss';

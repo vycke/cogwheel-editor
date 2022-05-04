@@ -4,7 +4,7 @@
 	import { copyTests } from './tests.actions';
 </script>
 
-<div class="wrapper | grid-1 flex-grow relative">
+<div class="grid-1 flex-grow relative">
 	<button
 		on:click|preventDefault={copyTests}
 		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-0 py-000 border-grey-5"
@@ -16,11 +16,12 @@
 			/>
 		</svg>
 	</button>
-	<div class="p-0">
-		<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
-				>{@html Prism.highlight($store, Prism.languages.javascript, 'javascript')}
-    </code>
-  </pre>
+	<div class="wrapper | grid-1">
+		<div class="grid-row-1 grid-col-1 p-0">
+			<pre aria-hidden="true"><code class="language-javascript"
+					>{@html Prism.highlight($store, Prism.languages.javascript, 'javascript')}
+    	</code></pre>
+		</div>
 	</div>
 </div>
 
@@ -48,5 +49,6 @@
 		font-size: var(--size-00);
 		font-family: var(--monospace);
 		tab-size: 2;
+		height: 100%;
 	}
 </style>
