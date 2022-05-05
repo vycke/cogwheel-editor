@@ -127,3 +127,18 @@ export const cogwheelEditorExample = `{
 		invalid: { TEXT_CHANGED: 'updateText' }
 	}
 }`;
+
+export const toastExample = `{
+	init: 'invisible',
+	states: {
+		visible: {
+			CLOSED: 'invisible',
+			OPENED: 'visible',
+			_entry: [
+				(s: MachineState<Ctx>, values: Ctx) => assign({ ...s.context, ...values }),
+				(s: MachineState<Ctx>) => send({ type: 'CLOSED', payload: s.context, delay: 6000 })
+			]
+		},
+		invisible: { OPENED: 'visible' }
+	}
+}`;

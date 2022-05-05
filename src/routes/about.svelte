@@ -5,7 +5,8 @@
 		autoSignoutExample,
 		cacheExample,
 		cogwheelEditorExample,
-		formExample
+		formExample,
+toastExample
 	} from '$lib/constants';
 </script>
 
@@ -36,6 +37,10 @@
 			</li>
 			<li>
 				<a href="/#/{window.btoa(cogwheelEditorExample)}" target="_blank">Cogwheel editor example</a
+				>
+			</li>
+			<li>
+				<a href="/#/{window.btoa(toastExample)}" target="_blank">Toast example</a
 				>
 			</li>
 		</ul>
