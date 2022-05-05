@@ -135,8 +135,8 @@ export const toastExample = `{
 			CLOSED: 'invisible',
 			OPENED: 'visible',
 			_entry: [
-				(s: MachineState<Ctx>, values: Ctx) => assign({ ...s.context, ...values }),
-				(s: MachineState<Ctx>) => send({ type: 'CLOSED', payload: s.context, delay: 6000 })
+				(s, values) => assign({ ...s.context, ...values }),
+				(s) => send({ type: 'CLOSED', payload: s.context, delay: 6000 })
 			]
 		},
 		invisible: { OPENED: 'visible' }
