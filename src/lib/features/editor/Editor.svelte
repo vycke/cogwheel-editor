@@ -16,9 +16,14 @@
 		}
 	}
 
+	function _update($store) {
+		text = $store.context.text;
+	}
+
 	// Reactive updated to the store.
 	export let text = $store.context.text;
 	$: updateText(text);
+	$: $store, _update($store);
 </script>
 
 <div class="grid-1 flex-grow relative">

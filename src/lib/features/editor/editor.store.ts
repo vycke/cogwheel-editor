@@ -100,6 +100,7 @@ function replaceText(state: MachineState<EditorCtx>) {
 		text += '\t}\n';
 	}
 	text += '}';
+
 	return assign({ ...state.context, text });
 }
 
