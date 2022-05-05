@@ -105,3 +105,25 @@ export const autoSignoutExample = `{
 		signed_out: {},
 	}
 }`;
+
+export const cogwheelEditorExample = `{
+	init: 'init',
+	states: {
+		init: { LOADED: 'valid', _entry: [initialize, autoTransition('LOADED')] },
+		valid: { ADD_ELEMENT: 'addElement', TEXT_CHANGED: 'updateText' },
+		addElement: {
+			FINISHED: 'valid',
+			_entry: [addElement, replaceText, updateUrl, autoTransition('FINISHED')]
+		},
+		updateText: {
+			VALIDATED: 'replaceConfig',
+			INVALIDATED: 'invalid',
+			_entry: [updateText, validate]
+		},
+		replaceConfig: {
+			FINISHED: 'valid',
+			_entry: [replaceConfig, updateUrl, autoTransition('FINISHED')]
+		},
+		invalid: { TEXT_CHANGED: 'updateText' }
+	}
+}`;
