@@ -45,7 +45,7 @@
 	}
 
 	pre > code {
-		font-size: var(--size-00);
+		font-size: 12px;
 		font-family: var(--monospace);
 		tab-size: 2;
 		height: 100%;
