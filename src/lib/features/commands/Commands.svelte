@@ -64,6 +64,11 @@
 
 	input {
 		font-family: var(--monospace);
+		outline: none;
+	}
+
+	input:focus {
+		outline: var(--color-primary) solid 2px;
 	}
 
 	svg {

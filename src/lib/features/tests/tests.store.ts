@@ -10,29 +10,21 @@ import { toast } from '../toast/toast.store';
 function getAllPaths(config: MachineConfig<O>): string[][] {
 	const paths: string[][] = [];
 
-	function iter(state: string, visited: string[], path: string[]) {
+	function iter(key: string, visited: string[], path: string[]) {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const states = config.states[state];
+		const { _entry, _exit, ...transitions } = config.states[key];
+		if (!Object.keys(transitions).length) paths.push([...path]);
 
-		if (!states) {
-			paths.push([...path]);
-			return;
-		}
-
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { _entry, _exit, ...transitions } = states;
 		Object.entries(transitions).forEach(([key, value]) => {
 			const target = typeof value === 'string' ? value : (value as Transition<O>).target;
 
-			if (visited.includes(target)) {
-				paths.push([...path, key]);
-				return;
-			}
-			iter(target, [...visited, target], [...path, key]);
+			if (visited.includes(target)) paths.push([...path, key]);
+			else iter(target, [...visited, target], [...path, key]);
 		});
 	}
 
 	iter(config.init, [config.init], []);
+
 	return paths;
 }
 

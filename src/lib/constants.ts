@@ -86,3 +86,22 @@ export const cacheExample = `{
 		}
   }
 }`;
+
+export const autoSignoutExample = `{
+	init: "signing_in",
+	states: {
+		signed_in: {
+			INACTIVE: "signing_out",
+			ACTIVITY: "signed_in",
+      _entry: [() => send({ type: 'INACTIVE', delay: 30000 })]
+		},
+		signing_in: {
+      FINISHED: "signed_in",
+      FAILED: "signing_out"
+		},
+		signing_out: {
+			FINISHED: "signed_out"
+		},
+		signed_out: {},
+	}
+}`;

@@ -1,6 +1,6 @@
 import { assign, machine, send } from 'cogwheel';
 import { machineStore } from '$lib/helpers/stateMachineStore';
-import type { MachineConfig, MachineState } from 'cogwheel/dist/types';
+import type { MachineConfig, MachineState, State, Transition } from 'cogwheel/dist/types';
 import { defaultStore } from '$lib/constants';
 import { toast } from '../toast/toast.store';
 import { get } from 'svelte/store';
@@ -23,10 +23,28 @@ type ePayload = {
 	target?: string;
 };
 
+// Currently all actions are removed
+function transform<T extends O>(text: string) {
+	const config = eval('(' + text + ')') as MachineConfig<T>;
+
+	Object.entries(config.states).forEach(([skey, state]: [string, State<T>]) => {
+		if (state._entry) delete config.states[skey]._entry;
+		if (state._exit) delete config.states[skey]._exit;
+
+		Object.entries(state).forEach(([tkey, transition]) => {
+			if (typeof transition === 'string') return;
+			if ((transition as Transition<T>).actions)
+				delete (config.states[skey][tkey] as Transition<T>).actions;
+		});
+	});
+
+	return config;
+}
+
 // initiatize the machine based on URL
 function initialize() {
 	const text = window.atob(window.location?.hash.replace('#/', '')) || defaultStore;
-	return assign({ text, config: eval('(' + text + ')') });
+	return assign({ text, config: transform(text) });
 }
 
 // update text based on input
@@ -42,7 +60,7 @@ function updateUrl(state: MachineState<EditorCtx>) {
 // Validate if config is valid or not.
 function validate(state: MachineState<EditorCtx>) {
 	try {
-		const config = eval('(' + state.context.text + ')');
+		const config = transform(state.context.text);
 		machine(config);
 		return send({ type: 'VALIDATED', payload: { config } });
 	} catch (e) {

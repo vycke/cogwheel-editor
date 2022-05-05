@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Footer from '$lib/components/structure/Footer.svelte';
-	import { authExample, cacheExample, formExample } from '$lib/constants';
+	import { authExample, autoSignoutExample, cacheExample, formExample } from '$lib/constants';
 </script>
 
 <svelte:head>
@@ -24,6 +24,9 @@
 			<li><a href="/#/{window.btoa(formExample)}" target="_blank">Form example</a></li>
 			<li>
 				<a href="/#/{window.btoa(cacheExample)}" target="_blank">Caching + fetching example</a>
+			</li>
+			<li>
+				<a href="/#/{window.btoa(autoSignoutExample)}" target="_blank">Auto signout example</a>
 			</li>
 		</ul>
 	</div>
