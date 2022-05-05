@@ -25,20 +25,25 @@ type ePayload = {
 
 // Currently all actions are removed
 function transform<T extends O>(text: string) {
-	const config = eval('(' + text + ')') as MachineConfig<T>;
+	try {
+		const _text = text.replace(new RegExp(/\[.+?\]/g), '[]');
+		const config = eval('(' + _text + ')') as MachineConfig<T>;
 
-	Object.entries(config.states).forEach(([skey, state]: [string, State<T>]) => {
-		if (state._entry) delete config.states[skey]._entry;
-		if (state._exit) delete config.states[skey]._exit;
+		Object.entries(config.states).forEach(([skey, state]: [string, State<T>]) => {
+			if (state._entry) delete config.states[skey]._entry;
+			if (state._exit) delete config.states[skey]._exit;
 
-		Object.entries(state).forEach(([tkey, transition]) => {
-			if (typeof transition === 'string') return;
-			if ((transition as Transition<T>).actions)
-				delete (config.states[skey][tkey] as Transition<T>).actions;
+			Object.entries(state).forEach(([tkey, transition]) => {
+				if (typeof transition === 'string') return;
+				if ((transition as Transition<T>).actions)
+					delete (config.states[skey][tkey] as Transition<T>).actions;
+			});
 		});
-	});
 
-	return config;
+		return config;
+	} catch (e) {
+		return transform(defaultStore);
+	}
 }
 
 // initiatize the machine based on URL

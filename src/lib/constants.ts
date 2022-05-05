@@ -93,7 +93,9 @@ export const autoSignoutExample = `{
 		signed_in: {
 			INACTIVE: "signing_out",
 			ACTIVITY: "signed_in",
-      _entry: [() => send({ type: 'INACTIVE', delay: 30000 })]
+      _entry: [
+				() => send({ type: 'INACTIVE', delay: 30000 })
+			]
 		},
 		signing_in: {
       FINISHED: "signed_in",
@@ -109,11 +111,17 @@ export const autoSignoutExample = `{
 export const cogwheelEditorExample = `{
 	init: 'init',
 	states: {
-		init: { LOADED: 'valid', _entry: [initialize, autoTransition('LOADED')] },
-		valid: { ADD_ELEMENT: 'addElement', TEXT_CHANGED: 'updateText' },
+		init: {
+			LOADED: 'valid',
+			_entry: [initialize, auto('LOADED')]
+		},
+		valid: { 
+			ADD_ELEMENT: 'addElement',
+			TEXT_CHANGED: 'updateText'
+		},
 		addElement: {
 			FINISHED: 'valid',
-			_entry: [addElement, replaceText, updateUrl, autoTransition('FINISHED')]
+			_entry: [addElement, replaceText, url, auto('FINISHED')]
 		},
 		updateText: {
 			VALIDATED: 'replaceConfig',
@@ -122,7 +130,7 @@ export const cogwheelEditorExample = `{
 		},
 		replaceConfig: {
 			FINISHED: 'valid',
-			_entry: [replaceConfig, updateUrl, autoTransition('FINISHED')]
+			_entry: [replaceConfig, url, auto('FINISHED')]
 		},
 		invalid: { TEXT_CHANGED: 'updateText' }
 	}
