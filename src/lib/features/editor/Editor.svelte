@@ -51,9 +51,8 @@
 			on:keydown={checkTab}
 		/>
 
-		<div class="viewer | grid-row-1 grid-col-1 text-00 p-0">
-			<pre aria-hidden="true" class="text-00 grid-row-1 grid-col-1 p-0"><code
-					class="language-javascript"
+		<div class="viewer | grid-row-1 grid-col-1 p-0">
+			<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
 					>{@html Prism.highlight($store.context.text, Prism.languages.javascript, 'javascript')}
 				</code>
 			</pre>
@@ -97,7 +96,6 @@
 	}
 
 	pre > code {
-		font-size: 12px;
 		font-family: var(--monospace);
 		tab-size: 2;
 	}

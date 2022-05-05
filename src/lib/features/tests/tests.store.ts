@@ -48,6 +48,8 @@ export const tests = derived<MachineStore<EditorCtx>, string>(editorStore, ($sto
 		if (i < paths.length - 1) syntax += '\n\n';
 	});
 
+	console.log(syntax);
+
 	set(syntax);
 });
 
