@@ -14,7 +14,7 @@
 
 <div class="flex-row gap-000 items-center mb-0 {className}">
 	<slot name="header" />
-	<ul class="flex-row border-w-5 border-grey-5 bg-grey-5 radius-00">
+	<ul class="container | flex-row border-w-3 border-grey-5 bg-grey-5 radius-00">
 		{#each items as item}
 			<li>
 				<button
@@ -38,6 +38,10 @@
 </div>
 
 <style>
+	.container {
+		gap: 3px;
+	}
+
 	.item {
 		padding: var(--size-none) var(--size-1);
 		cursor: pointer;

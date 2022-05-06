@@ -25,31 +25,31 @@ type ePayload = {
 
 // Currently all actions are removed
 function transform<T extends O>(text: string) {
-	try {
-		const _text = text.replace(new RegExp(/\[.+?\]/g), '[]');
-		const config = eval('(' + _text + ')') as MachineConfig<T>;
+	const _text = text.replace(new RegExp(/\[.+?\]/g), '[]');
+	const config = eval('(' + _text + ')') as MachineConfig<T>;
 
-		Object.entries(config.states).forEach(([skey, state]: [string, State<T>]) => {
-			if (state._entry) delete config.states[skey]._entry;
-			if (state._exit) delete config.states[skey]._exit;
+	Object.entries(config.states).forEach(([skey, state]: [string, State<T>]) => {
+		if (state._entry) delete config.states[skey]._entry;
+		if (state._exit) delete config.states[skey]._exit;
 
-			Object.entries(state).forEach(([tkey, transition]) => {
-				if (typeof transition === 'string') return;
-				if ((transition as Transition<T>).actions)
-					delete (config.states[skey][tkey] as Transition<T>).actions;
-			});
+		Object.entries(state).forEach(([tkey, transition]) => {
+			if (typeof transition === 'string') return;
+			if ((transition as Transition<T>).actions)
+				delete (config.states[skey][tkey] as Transition<T>).actions;
 		});
+	});
 
-		return config;
-	} catch (e) {
-		return transform(defaultStore);
-	}
+	return config;
 }
 
 // initiatize the machine based on URL
 function initialize() {
 	const text = window.atob(window.location?.hash.replace('#/', '')) || defaultStore;
-	return assign({ text, config: transform(text) });
+	try {
+		return assign({ text, config: transform(text) });
+	} catch (e) {
+		return assign({ text, config: transform(defaultStore) });
+	}
 }
 
 // update text based on input
@@ -65,8 +65,7 @@ function updateUrl(state: MachineState<EditorCtx>) {
 // Validate if config is valid or not.
 function validate(state: MachineState<EditorCtx>) {
 	try {
-		const config = transform(state.context.text);
-		machine(config);
+		machine(transform(state.context.text));
 		return send({ type: 'VALIDATED', payload: { config } });
 	} catch (e) {
 		return send({ type: 'INVALIDATED' });

@@ -3,13 +3,13 @@
 </script>
 
 <div
-	class="toast | py-00 px-0 | bold lh-00 bg-{$toastStore.context.type} text-grey-0 radius-00"
+	class="toast | py-00 px-0 | bold lh-00 bg-{$toastStore.context.type} text-grey-5 radius-00"
 	data-state={$toastStore.state}
 >
 	<span>{$toastStore.context.label}</span>
 	<button
 		on:click={() => toastStore.send({ type: 'CLOSED' })}
-		class="ml-1 text-grey-0"
+		class="ml-1 text-grey-5"
 		data-type="link">x</button
 	>
 </div>

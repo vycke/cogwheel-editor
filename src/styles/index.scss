@@ -3,7 +3,7 @@ $_h: 215;
 $_s: 20%;
 
 $feo-colors: (
-  // grey-scale
+  // GREY-COLORS
   'grey-0': hsl($_h, $_s, 98%),
   'grey-1': hsl($_h, $_s, 90%),
   'grey-2': hsl($_h, $_s, 70%),
@@ -11,13 +11,13 @@ $feo-colors: (
   'grey-4': hsl($_h, $_s, 20%),
   'grey-5': hsl($_h, $_s, 10%),
   // BRAND COLORS
-  'primary': #1395ae,
+  'primary': #3B999B,
   'accent': #8C90CE,
   // FUNCTIONAL COLORS
-	'info': #3380CC,
-	'success': #5EBA8C,
-	'warning': #EBCB8B,
-	'danger': #C75963
+	'info': #3C8CDD,
+	'success': #59C08C,
+	'warning': #FFD782,
+	'danger': #EE5873
 );
 
 @import '../../node_modules/feo-css/feo.scss';

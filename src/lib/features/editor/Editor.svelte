@@ -2,17 +2,34 @@
 	import { copyConfig, editorStore as store, updateText } from './editor.store';
 	import Prism from '$lib/helpers/prism';
 
+	function addTabs(e: HTMLTextAreaElement, tabs = 1, enter = false) {
+		const _before = e.value.slice(0, e.selectionStart);
+		const _after = e.value.slice(e.selectionEnd, e.value.length);
+
+		let _spaces = enter ? '\n' : '';
+		for (let i = 0; i < tabs; i++) _spaces += '\t';
+		const _pos = e.selectionEnd + _spaces.length;
+		const _text = _before + _spaces + _after;
+		e.value = _text;
+		e.selectionStart = _pos;
+		e.selectionEnd = _pos;
+
+		return _text;
+	}
+
 	function checkTab(e: KeyboardEvent) {
-		if (e.key == 'Tab') {
-			const _e = e.target as HTMLTextAreaElement;
+		let _e: HTMLTextAreaElement;
+		if (e.key === 'Tab' || e.key === 'Enter') {
+			_e = e.target as HTMLTextAreaElement;
 			e.preventDefault();
-			const _before = _e.value.slice(0, _e.selectionStart);
-			const _after = _e.value.slice(_e.selectionEnd, _e.value.length);
-			const _pos = _e.selectionEnd + 2;
-			_e.value = _before + '  ' + _after;
-			updateText(_before + '  ' + _after);
-			_e.selectionStart = _pos;
-			_e.selectionEnd = _pos;
+		}
+
+		if (e.key === 'Tab') {
+			updateText(addTabs(_e));
+		} else if (e.key === 'Enter') {
+			const tokens = _e.value.slice(0, _e.selectionEnd).split('\n');
+			const tabs = (tokens[tokens.length - 1].match(/\t/g) || []).length;
+			updateText(addTabs(_e, tabs, true));
 		}
 	}
 
@@ -40,7 +57,9 @@
 	</button>
 	<div class="wrapper | grid-1">
 		{#if $store.state === 'invalid'}
-			<span class="absolute posb-0 posr-0 mb-000 mr-000 text-0 bg-danger lh-0 radius-1 p-000">
+			<span
+				class="absolute posb-0 posr-0 mb-000 mr-000 text-0 bg-danger lh-0 radius-00 p-000 text-grey-5"
+			>
 				Invalid configuration
 			</span>
 		{/if}

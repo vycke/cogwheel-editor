@@ -8,7 +8,11 @@ const config = {
 		adapter: adapter()
 	},
 	vite: {
-		optimizeDeps: { include: ['mermaid'] }
+		optimizeDeps: { include: ['mermaid'] },
+		test: {
+			globals: true,
+			environment: 'jsdom'
+		}
 	}
 };
 
