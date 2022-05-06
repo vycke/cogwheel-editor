@@ -68,7 +68,8 @@
 	}
 
 	input:focus {
-		outline: var(--color-primary) solid 2px;
+		border-radius: var(--size-0);
+		border: var(--color-primary) solid 2px;
 	}
 
 	svg {
