@@ -23,6 +23,7 @@ $feo-colors: (
 @import '../../node_modules/feo-css/feo.scss';
 @import 'global';
 @import 'code';
+@import 'tooltip';
 
 .pointer { 
   cursor: pointer;

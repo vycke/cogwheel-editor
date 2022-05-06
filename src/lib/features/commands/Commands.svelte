@@ -24,7 +24,12 @@
 	}
 </script>
 
-<button class="radius-1 bg-grey-4" on:click={toggle} use:shortcut={{ key: 'p', callback: toggle }}>
+<button
+	class="radius-1 bg-grey-4"
+	on:click={toggle}
+	use:shortcut={{ key: 'p', callback: toggle }}
+	data-tooltip="ctrl + P"
+>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
 		<path
 			fill="currentColor"

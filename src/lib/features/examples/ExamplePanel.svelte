@@ -12,9 +12,10 @@
 </script>
 
 <button
-	class="radius-1 bg-grey-4 pointer"
+	class="radius-1 bg-grey-4 pointer lh-0"
 	on:click={toggleExamplePanel}
 	use:shortcut={{ key: 'e', callback: toggleExamplePanel }}
+	data-tooltip="ctrl + E"
 >
 	examples
 </button>
@@ -23,7 +24,7 @@
 		<span class="text-0 bold">State machine examples</span>
 		<ul class="list">
 			{#each examples as example}
-				<li class="flex-row items-center p-000 border-b-grey-4 gap-000">
+				<li class="flex-row items-center py-000 border-b-grey-4 gap-000">
 					<button
 						on:click={() => replace(example.config)}
 						class="pointer transition-300 text-00 radius-000 bg-grey-3 hover:bg-accent text-grey-0 hover:text-grey-0"
