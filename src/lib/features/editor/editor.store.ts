@@ -65,7 +65,7 @@ function configToText(config) {
 function initialize(_s, payload) {
 	let text = '';
 
-	if (payload) text = configToText(payload);
+	if (payload) text = payload;
 	else text = window.atob(window.location?.hash.replace('#/', '')) || defaultStore;
 
 	try {
@@ -172,12 +172,7 @@ export function addTransition(str = '') {
 }
 
 export function reset(str: string) {
-	try {
-		const config = textToConfig(str);
-		editorStore.send({ type: 'RESET', payload: config });
-	} catch (e) {
-		console.warn('Invalid configuration');
-	}
+	editorStore.send({ type: 'RESET', payload: str });
 }
 
 export async function copyConfig() {
