@@ -1,18 +1,16 @@
 import { assign, machine, send } from 'cogwheel';
 import { machineStore } from '$lib/helpers/stateMachineStore';
 import type { MachineConfig, MachineState, State, Transition } from 'cogwheel/dist/types';
-import { defaultStore } from '$lib/constants';
+import { examples } from '$lib/features/examples/constants';
 import { toast } from '../toast/toast.store';
 import { get } from 'svelte/store';
+
+const defaultStore = examples.find((e) => e.default).config;
 
 type O = { [key: string]: unknown };
 
 export type EditorCtx = {
 	text: string;
-	config: MachineConfig<O>;
-};
-
-type vPayload = {
 	config: MachineConfig<O>;
 };
 
@@ -24,7 +22,7 @@ type ePayload = {
 };
 
 // Currently all actions are removed
-function transform<T extends O>(text: string) {
+function textToConfig<T extends O>(text: string) {
 	const _text = text.replace(new RegExp(/\[.+?\]/g), '[]');
 	const config = eval('(' + _text + ')') as MachineConfig<T>;
 
@@ -42,13 +40,40 @@ function transform<T extends O>(text: string) {
 	return config;
 }
 
+// Function to transform config to Text
+function configToText(config) {
+	let text = '{\n';
+
+	if (config.init) text += `\tinit: "${config.init}",\n\tstates: {\n`;
+	if (config.states) {
+		Object.entries(config.states).forEach(([k, v]) => {
+			text += `\t\t${k}: {\n`;
+			Object.entries(v).forEach(([s, t]) => {
+				text += `\t\t\t${s}: "${t}",\n`;
+			});
+			text += `\t\t},\n`;
+		});
+
+		text += '\t}\n';
+	}
+	text += '}';
+
+	return text;
+}
+
 // initiatize the machine based on URL
-function initialize() {
-	const text = window.atob(window.location?.hash.replace('#/', '')) || defaultStore;
+function initialize(_s, payload) {
+	let text = '';
+
+	if (payload) text = configToText(payload);
+	else text = window.atob(window.location?.hash.replace('#/', '')) || defaultStore;
+
 	try {
-		return assign({ text, config: transform(text) });
+		const config = textToConfig(text);
+		window.location.hash = `#/${window.btoa(text)}`;
+		return assign({ text, config });
 	} catch (e) {
-		return assign({ text, config: transform(defaultStore) });
+		return assign({ text, config: textToConfig(defaultStore) });
 	}
 }
 
@@ -65,16 +90,17 @@ function updateUrl(state: MachineState<EditorCtx>) {
 // Validate if config is valid or not.
 function validate(state: MachineState<EditorCtx>) {
 	try {
-		machine(transform(state.context.text));
-		return send({ type: 'VALIDATED', payload: { config } });
+		const config = textToConfig(state.context.text);
+		machine(config);
+		return send({ type: 'VALIDATED', payload: config });
 	} catch (e) {
 		return send({ type: 'INVALIDATED' });
 	}
 }
 
 // replace config based on the text (converted in previous step )
-function replaceConfig(state: MachineState<EditorCtx>, payload: vPayload) {
-	return assign({ ...state.context, config: payload.config });
+function replaceConfig(state: MachineState<EditorCtx>, payload: MachineConfig<O>) {
+	return assign({ ...state.context, config: payload });
 }
 
 function addElement(state: MachineState<EditorCtx>, payload: ePayload) {
@@ -89,22 +115,7 @@ function addElement(state: MachineState<EditorCtx>, payload: ePayload) {
 }
 
 function replaceText(state: MachineState<EditorCtx>) {
-	let text = '{\n';
-
-	if (state.context.config.init) text += `\tinit: "${state.context.config.init}",\n\tstates: {\n`;
-	if (state.context.config.states) {
-		Object.entries(state.context.config.states).forEach(([k, v]) => {
-			text += `\t\t${k}: {\n`;
-			Object.entries(v).forEach(([s, t]) => {
-				text += `\t\t\t${s}: "${t}",\n`;
-			});
-			text += `\t\t},\n`;
-		});
-
-		text += '\t}\n';
-	}
-	text += '}';
-
+	const text = configToText(state.context.config);
 	return assign({ ...state.context, text });
 }
 
@@ -119,7 +130,7 @@ const config: MachineConfig<EditorCtx> = {
 	init: 'init',
 	states: {
 		init: { LOADED: 'valid', _entry: [initialize, autoTransition('LOADED')] },
-		valid: { ADD_ELEMENT: 'addElement', TEXT_CHANGED: 'updateText' },
+		valid: { ADD_ELEMENT: 'addElement', TEXT_CHANGED: 'updateText', RESET: 'init' },
 		addElement: {
 			FINISHED: 'valid',
 			_entry: [addElement, replaceText, updateUrl, autoTransition('FINISHED')]
@@ -133,7 +144,7 @@ const config: MachineConfig<EditorCtx> = {
 			FINISHED: 'valid',
 			_entry: [replaceConfig, updateUrl, autoTransition('FINISHED')]
 		},
-		invalid: { TEXT_CHANGED: 'updateText' }
+		invalid: { TEXT_CHANGED: 'updateText', RESET: 'init' }
 	}
 };
 
@@ -158,6 +169,15 @@ export function addTransition(str = '') {
 		type: 'ADD_ELEMENT',
 		payload: { type: 'transition', source, target, label }
 	});
+}
+
+export function reset(str: string) {
+	try {
+		const config = textToConfig(str);
+		editorStore.send({ type: 'RESET', payload: config });
+	} catch (e) {
+		console.warn('Invalid configuration');
+	}
 }
 
 export async function copyConfig() {

@@ -1,4 +1,4 @@
-export const defaultStore = `{
+const dialog = `{
 	init: "visible",
 	states: {
 		visible: {
@@ -10,7 +10,7 @@ export const defaultStore = `{
 	}
 }`;
 
-export const authExample = `{
+const auth = `{
   init: 'not_authenticated',
   states: {
     not_authenticated: {
@@ -22,7 +22,10 @@ export const authExample = `{
 		},
     authenticated: {
       SIGNOUT_STARTED: 'signing_out',
-      EXPIRED: 'expired'
+      EXPIRED: 'expired',
+			_entry: [
+				() => send({ type: "EXPIRED", delay: 30000 })
+			]
     },
     expired: {
 			REFRESH_STARTED: 'refreshing'
@@ -37,7 +40,7 @@ export const authExample = `{
   }
 }`;
 
-export const formExample = `{
+const form = `{
   init: 'init',
   states: {
     init: {
@@ -63,7 +66,7 @@ export const formExample = `{
   }
 }`;
 
-export const cacheExample = `{
+const cache = `{
   init: 'idle',
   states: {
     idle: {
@@ -75,7 +78,10 @@ export const cacheExample = `{
 		},
     success: {
       STARTED: 'pending',
-      MODIFIED: 'invalid'
+      MODIFIED: 'invalid',
+			_entry: [
+				() => send({ type: "MODIFIED", delay: 30000 })
+			]
     },
     invalid: {
 			MODIFIED: 'invalid',
@@ -87,7 +93,7 @@ export const cacheExample = `{
   }
 }`;
 
-export const autoSignoutExample = `{
+const signout = `{
 	init: "signing_in",
 	states: {
 		signed_in: {
@@ -108,7 +114,7 @@ export const autoSignoutExample = `{
 	}
 }`;
 
-export const cogwheelEditorExample = `{
+const cogwheelEditor = `{
 	init: 'init',
 	states: {
 		init: {
@@ -136,7 +142,7 @@ export const cogwheelEditorExample = `{
 	}
 }`;
 
-export const toastExample = `{
+const toast = `{
 	init: 'invisible',
 	states: {
 		visible: {
@@ -144,9 +150,48 @@ export const toastExample = `{
 			OPENED: 'visible',
 			_entry: [
 				(s, values) => assign({ ...s.context, ...values }),
-				(s) => send({ type: 'CLOSED', payload: s.context, delay: 6000 })
+				() => send({ type: 'CLOSED', delay: 6000 })
 			]
 		},
 		invisible: { OPENED: 'visible' }
 	}
 }`;
+
+export const examples = [
+	{
+		title: 'dialog',
+		default: true,
+		description: 'manage the visibility of a dialog',
+		config: dialog
+	},
+	{
+		title: 'form',
+		description: 'manage the validation state of a form + submission state',
+		config: form
+	},
+	{
+		title: 'auto signout',
+		description: 'auto sign-out + reset trigger',
+		config: signout
+	},
+	{
+		title: 'authentication',
+		description: 'manage the authentication state of a user',
+		config: auth
+	},
+	{
+		title: 'cache',
+		description: 'automatic cache invalidation',
+		config: cache
+	},
+	{
+		title: 'toast',
+		description: 'automatic closing of a toast + reset of a toast',
+		config: toast
+	},
+	{
+		title: 'cogwheel editor',
+		description: 'the internal state machine used in the editor you see here',
+		config: cogwheelEditor
+	}
+];

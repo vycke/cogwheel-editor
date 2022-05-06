@@ -12,8 +12,8 @@
 	let selected: string = items[0].label;
 </script>
 
-<div class="flex-row gap-000 items-center mb-0 {className}">
-	<slot name="header" />
+<div class="flex-row gap-00 items-center mb-0 {className}">
+	<slot />
 	<ul class="container | flex-row border-w-3 border-grey-5 bg-grey-5 radius-00">
 		{#each items as item}
 			<li>
@@ -49,7 +49,6 @@
 		border-radius: var(--size-000);
 		color: var(--color-grey-0);
 		transition: var(--transition-300);
-		text-transform: capitalize;
 	}
 
 	.selected {

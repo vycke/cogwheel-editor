@@ -6,6 +6,7 @@
 	import Visualizer from '$lib/features/visualizer/Visualizer.svelte';
 	import Commands from '$lib/features/commands/Commands.svelte';
 	import TestOverview from '$lib/features/tests/TestOverview.svelte';
+	import ExamplePanel from '$lib/features/examples/ExamplePanel.svelte';
 
 	let items = [
 		{ label: 'editor', component: Editor },
@@ -22,7 +23,10 @@
 
 <section class="sidebar | flex-col content-start p-0">
 	<TabContainer class="self-end" {items}>
-		<Commands slot="header" />
+		<div class="flex-row items-center gap-00">
+			<Commands />
+			<ExamplePanel />
+		</div>
 	</TabContainer>
 
 	<Footer />

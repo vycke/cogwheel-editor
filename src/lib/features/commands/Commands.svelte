@@ -2,7 +2,7 @@
 	import { commands } from './commands';
 	import Modal from '$lib/components/utilities/Modal.svelte';
 	import { shortcut } from '$lib/helpers/shortcut';
-	import { modal, togglePalette } from './modal.store';
+	import { commandModal, toggleCommandPanel } from './modal.store';
 
 	export let cmd = '';
 	let ref: HTMLElement;
@@ -10,8 +10,8 @@
 
 	function toggle() {
 		cmd = '';
-		togglePalette();
-		if ($modal.state === 'visible') ref.focus();
+		toggleCommandPanel();
+		if ($commandModal.state === 'visible') ref.focus();
 	}
 
 	function execute(e: KeyboardEvent) {
@@ -32,7 +32,7 @@
 		/>
 	</svg>
 </button>
-<Modal store={modal}>
+<Modal store={commandModal}>
 	<div class="flex-col">
 		<input
 			bind:value={cmd}

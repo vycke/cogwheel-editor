@@ -1,7 +1,7 @@
 import { createVisibilityStore } from '$lib/helpers/visibilityStore';
 
-export const modal = createVisibilityStore('invisible');
+export const commandModal = createVisibilityStore('invisible');
 
-export function togglePalette() {
-	modal.send({ type: 'TOGGLE' });
+export function toggleCommandPanel() {
+	commandModal.send({ type: 'TOGGLE' });
 }

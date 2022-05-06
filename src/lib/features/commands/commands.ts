@@ -1,7 +1,7 @@
 import { addNode, addTransition, copyConfig } from '../editor/editor.store';
 import { copyTests } from '../tests/tests.store';
 import { copyMermaid } from '../visualizer/visualizer.store';
-import { togglePalette } from './modal.store';
+import { toggleCommandPanel } from './modal.store';
 
 export type Command = {
 	key: string;
@@ -23,7 +23,7 @@ export const commands: Command[] = [
 	{
 		key: 'esc',
 		description: 'close the command palette',
-		callback: togglePalette
+		callback: toggleCommandPanel
 	},
 	{
 		key: 'mermaid',
