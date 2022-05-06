@@ -72,7 +72,7 @@
 
 		<div class="viewer | grid-row-1 grid-col-1 p-0">
 			<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
-					>{@html Prism.highlight($store.context.text, Prism.languages.javascript, 'javascript')}
+					>{@html Prism.highlight(text, Prism.languages.javascript, 'javascript')}
 				</code>
 			</pre>
 		</div>
