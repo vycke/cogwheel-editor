@@ -12,7 +12,7 @@
 </script>
 
 <button
-	class="radius-1 bg-grey-4 pointer lh-0"
+	class="radius-1 bg-grey-4 pointer lh-0 hover:text-primary transition-300"
 	on:click={toggleExamplePanel}
 	use:shortcut={{ key: 'e', callback: toggleExamplePanel }}
 	data-tooltip="ctrl + E"
