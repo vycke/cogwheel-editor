@@ -123,7 +123,8 @@ const cogwheelEditor = `{
 		},
 		valid: { 
 			ADD_ELEMENT: 'addElement',
-			TEXT_CHANGED: 'updateText'
+			TEXT_CHANGED: 'updateText',
+			RESET: 'init'
 		},
 		addElement: {
 			FINISHED: 'valid',
@@ -138,7 +139,10 @@ const cogwheelEditor = `{
 			FINISHED: 'valid',
 			_entry: [replaceConfig, url, auto('FINISHED')]
 		},
-		invalid: { TEXT_CHANGED: 'updateText' }
+		invalid: {
+			TEXT_CHANGED: 'updateText',
+			RESET: 'init'
+		}
 	}
 }`;
 
