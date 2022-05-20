@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { copyConfig, editorStore, updateText } from './editor.store';
-	import Prism from '$lib/helpers/prism';
-
 	let { state } = editorStore;
 
 	function addTabs(e: HTMLTextAreaElement, tabs = 1, enter = false) {
@@ -72,13 +70,6 @@
 			bind:value={text}
 			on:keydown={checkTab}
 		/>
-
-		<!-- <div class="viewer | grid-row-1 grid-col-1 p-0">
-			<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
-					>{@html Prism.highlight(text, Prism.languages.javascript, 'javascript')}
-				</code>
-			</pre>
-		</div> -->
 	</div>
 </div>
 
@@ -111,21 +102,5 @@
 
 	.editor:focus {
 		outline: none;
-	}
-
-	.viewer {
-		position: relative;
-	}
-
-	pre > code {
-		font-family: var(--monospace);
-		tab-size: 2;
-	}
-
-	pre {
-		z-index: 0;
-		overflow: none;
-		height: 100%;
-		position: relative;
 	}
 </style>
