@@ -16,11 +16,13 @@ type AddElementEvent = Event & {
 };
 type ConfigEvent = Event & { config: MachineConfig<O, Event> };
 type TextEvent = Event & { text: string };
-type EditorEvent = Event | AddElementEvent | ConfigEvent | TextEvent;
+type ErrorEvent = Event & { error: string };
+type EditorEvent = Event | AddElementEvent | ConfigEvent | TextEvent | ErrorEvent;
 
 export type EditorCtx = {
 	text: string;
 	config: MachineConfig<O, EditorEvent>;
+	error: string;
 };
 type EditorAction = Action<EditorCtx, EditorEvent>;
 
@@ -66,7 +68,6 @@ function configToText(config) {
 
 // initiatize the machine based on URL
 const initAction: EditorAction = function (_s, event) {
-	console.log({ event });
 	let text = '';
 
 	if ((event as TextEvent).text) text = (event as TextEvent).text;
@@ -98,7 +99,8 @@ const validateAction: EditorAction = function (state) {
 		machine(config);
 		return send({ type: 'VALIDATED', config } as ConfigEvent);
 	} catch (e) {
-		return send({ type: 'INVALIDATED' });
+		console.log(e.message);
+		return send({ type: 'INVALIDATED', error: e.message } as ErrorEvent);
 	}
 };
 
@@ -131,6 +133,10 @@ const transitionAction = function (event: string) {
 	};
 };
 
+const errorAction: EditorAction = function (state, event) {
+	return assign({ ...state.context, error: (event as ErrorEvent).error });
+};
+
 const config: MachineConfig<EditorCtx, EditorEvent> = {
 	init: 'init',
 	states: {
@@ -149,7 +155,7 @@ const config: MachineConfig<EditorCtx, EditorEvent> = {
 			FINISHED: 'valid',
 			_entry: [replaceConfigAction, updateUrlAction, transitionAction('FINISHED')]
 		},
-		invalid: { TEXT_CHANGED: 'updateText', RESET: 'init' }
+		invalid: { TEXT_CHANGED: 'updateText', RESET: 'init', _entry: [errorAction] }
 	}
 };
 

@@ -161,6 +161,30 @@ const toast = `{
 	}
 }`;
 
+const todo = `{
+	init: "active",
+	states: {
+		active: {
+			CHANGE: "editing",
+			DELETE: "deleted",
+		},
+		editing: {
+			CHANGE: "editing",
+			SUBMIT: { target: "submitting", guard: (c) => c.touched },
+			CANCEL: "active",
+		},
+		deleted: {
+		},
+		failed: {
+			RETRY: "submitting",
+		},
+		submitting: {
+			SUCCESS: "active",
+			FAILED: "failed",
+		},
+	}
+}`;
+
 export const examples = [
 	{
 		title: 'dialog',
@@ -197,5 +221,10 @@ export const examples = [
 		title: 'cogwheel editor',
 		description: 'the internal state machine used in the editor you see here',
 		config: cogwheelEditor
+	},
+	{
+		title: 'todo',
+		description: 'states of a todo in a todo application',
+		config: todo
 	}
 ];

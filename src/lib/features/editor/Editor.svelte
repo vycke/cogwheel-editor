@@ -63,7 +63,7 @@
 			<span
 				class="absolute posb-0 posr-0 mb-000 mr-000 text-0 bg-danger lh-0 radius-00 p-000 text-grey-5"
 			>
-				Invalid configuration
+				{$state.context.error}
 			</span>
 		{/if}
 		<textarea
@@ -73,12 +73,12 @@
 			on:keydown={checkTab}
 		/>
 
-		<div class="viewer | grid-row-1 grid-col-1 p-0">
+		<!-- <div class="viewer | grid-row-1 grid-col-1 p-0">
 			<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
 					>{@html Prism.highlight(text, Prism.languages.javascript, 'javascript')}
 				</code>
 			</pre>
-		</div>
+		</div> -->
 	</div>
 </div>
 
@@ -102,7 +102,7 @@
 		tab-size: 2;
 		z-index: 1;
 		resize: none;
-		color: transparent;
+		/* color: transparent; */
 		background: transparent;
 		caret-color: var(--color-primary);
 		height: 100%;
