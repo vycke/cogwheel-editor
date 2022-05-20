@@ -1074,10 +1074,10 @@ cliui@^7.0.2:
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
 
-cogwheel@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/cogwheel/-/cogwheel-2.0.0.tgz#303e92ea1824c2de65f328212751525e722a38d2"
-  integrity sha512-72XY3p/4QIF2CHvT1wk5Lq3rEkA6wWZr1CMW0A60HPjwSxob22rD7sIstALSZweicf3E8nOWPFMRYGspOgs+ew==
+cogwheel@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/cogwheel/-/cogwheel-3.0.0.tgz#2301c5b9bb3714fcec01569802611216a3d8918e"
+  integrity sha512-oGjrFN/CXFGQbus6bjKb3eHV5XEGCE1VkjUd6Tph2Kjf+ho3+SxBUlWgUG7LYOxPyBsjh0Ot4kVcDbIuIFXpaw==
 
 color-convert@^1.9.0:
   version "1.9.3"

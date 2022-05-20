@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { copyConfig, editorStore as store, updateText } from './editor.store';
+	import { copyConfig, editorStore, updateText } from './editor.store';
 	import Prism from '$lib/helpers/prism';
+
+	let { state } = editorStore;
 
 	function addTabs(e: HTMLTextAreaElement, tabs = 1, enter = false) {
 		const _before = e.value.slice(0, e.selectionStart);
@@ -38,9 +40,10 @@
 	}
 
 	// Reactive updated to the store.
-	export let text = $store.context.text;
+
+	export let text = $state.context.text;
 	$: updateText(text);
-	$: $store, _update($store);
+	$: $state, _update($state);
 </script>
 
 <div class="grid-1 flex-grow relative">
@@ -56,7 +59,7 @@
 		</svg>
 	</button>
 	<div class="wrapper | grid-1">
-		{#if $store.state === 'invalid'}
+		{#if $state.current === 'invalid'}
 			<span
 				class="absolute posb-0 posr-0 mb-000 mr-000 text-0 bg-danger lh-0 radius-00 p-000 text-grey-5"
 			>

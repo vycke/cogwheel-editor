@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -33,7 +33,7 @@
   },
   "type": "module",
   "dependencies": {
-    "cogwheel": "^2.0.0",
+    "cogwheel": "^3.0.0",
     "mermaid": "^8.14.0",
     "prismjs": "^1.26.0"
   }

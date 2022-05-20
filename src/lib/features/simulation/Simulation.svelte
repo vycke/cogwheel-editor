@@ -1,18 +1,12 @@
 <script lang="ts">
 	import Button from '$lib/components/form/Button.svelte';
-	import { events } from './simulation.store';
-	import { toast } from '../toast/toast.store';
+	import { clearLog, events } from './simulation.store';
 
 	let event = ``;
 
 	function addEvent() {
 		events.update((v) => [...v, event]);
 		event = '';
-	}
-
-	function handleReset() {
-		events.set([]);
-		toast.info('Events removed!');
 	}
 
 	function execute(e) {
@@ -22,7 +16,7 @@
 
 <div class="wrapper | p-0 flex-col relative">
 	<button
-		on:click|preventDefault={handleReset}
+		on:click|preventDefault={clearLog}
 		class="absolute post-0 posr-0 bg-grey-4 text-grey-0 hover:text-primary transition-300 px-0 py-000 border-grey-5"
 	>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
