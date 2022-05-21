@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { highlighter } from '$lib/helpers/highlighter';
+
 	import { copyConfig, editorStore, updateText } from './editor.store';
 	let { state } = editorStore;
 
@@ -38,7 +40,6 @@
 	}
 
 	// Reactive updated to the store.
-
 	export let text = $state.context.text;
 	$: updateText(text);
 	$: $state, _update($state);
@@ -70,6 +71,12 @@
 			bind:value={text}
 			on:keydown={checkTab}
 		/>
+		<div class="viewer | grid-row-1 grid-col-1 p-0">
+			<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
+					>{@html highlighter(text)}
+				</code>
+			</pre>
+		</div>
 	</div>
 </div>
 
@@ -93,7 +100,7 @@
 		tab-size: 2;
 		z-index: 1;
 		resize: none;
-		/* color: transparent; */
+		color: transparent;
 		background: transparent;
 		caret-color: var(--color-primary);
 		height: 100%;
@@ -102,5 +109,19 @@
 
 	.editor:focus {
 		outline: none;
+	}
+
+	.viewer {
+		position: relative;
+	}
+	pre > code {
+		font-family: var(--monospace);
+		tab-size: 2;
+	}
+	pre {
+		z-index: 0;
+		overflow: none;
+		height: 100%;
+		position: relative;
 	}
 </style>

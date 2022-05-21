@@ -11,84 +11,84 @@ const dialog = `{
 }`;
 
 const auth = `{
-  init: 'not_authenticated',
+  init: "not_authenticated",
   states: {
     not_authenticated: {
-			SIGNIN_STARTED: 'signing_in'
+			SIGNIN_STARTED: "signing_in"
 		},
     signing_in: {
-			FINISHED: 'authenticated',
-			FAILED: 'not_authenticated'
+			FINISHED: "authenticated",
+			FAILED: "not_authenticated"
 		},
     authenticated: {
-      SIGNOUT_STARTED: 'signing_out',
-      EXPIRED: 'expired',
+      SIGNOUT_STARTED: "signing_out",
+      EXPIRED: "expired",
 			_entry: [
 				() => send({ type: "EXPIRED", delay: 30000 })
 			]
     },
     expired: {
-			REFRESH_STARTED: 'refreshing'
+			REFRESH_STARTED: "refreshing"
 		},
     signing_out: {
-			FINISHED: 'not_authenticated'
+			FINISHED: "not_authenticated"
 		},
     refreshing: {
-			FINISHED: 'authenticated',
-			FAILED: 'signing_out'
+			FINISHED: "authenticated",
+			FAILED: "signing_out"
 		}
   }
 }`;
 
 const form = `{
-  init: 'init',
+  init: "init",
   states: {
     init: {
-			LOADED: 'ready'
+			LOADED: "ready"
 		},
     ready: {
-      CHANGED: 'touched'
+      CHANGED: "touched"
     },
     touched: {
-      CHANGED: 'touched',
-      SUBMITTED: 'validating'
+      CHANGED: "touched",
+      SUBMITTED: "validating"
     },
     validating: {
-      SUBMITTED: 'submitting',
-      REJECTED: 'invalid'
+      SUBMITTED: "submitting",
+      REJECTED: "invalid"
     },
     invalid: {
-      CHANGED: 'touched'
+      CHANGED: "touched"
     },
     submitting: {
-			FINISHED: 'ready'
+			FINISHED: "ready"
 		}
   }
 }`;
 
 const cache = `{
-  init: 'idle',
+  init: "idle",
   states: {
     idle: {
-			STARTED: 'pending'
+			STARTED: "pending"
 		},
     pending: {
-			FINISHED: 'success',
-			FAILED: 'error'
+			FINISHED: "success",
+			FAILED: "error"
 		},
     success: {
-      STARTED: 'pending',
-      MODIFIED: 'invalid',
+      STARTED: "pending",
+      MODIFIED: "invalid",
 			_entry: [
 				() => send({ type: "MODIFIED", delay: 30000 })
 			]
     },
     invalid: {
-			MODIFIED: 'invalid',
-			STARTED: 'pending',
+			MODIFIED: "invalid",
+			STARTED: "pending",
 		},
     error: {
-			STARTED: 'pending'
+			STARTED: "pending"
 		}
   }
 }`;
@@ -100,7 +100,7 @@ const signout = `{
 			INACTIVE: "signing_out",
 			ACTIVITY: "signed_in",
       _entry: [
-				() => send({ type: 'INACTIVE', delay: 30000 })
+				() => send({ type: "INACTIVE", delay: 30000 })
 			]
 		},
 		signing_in: {
@@ -115,49 +115,49 @@ const signout = `{
 }`;
 
 const cogwheelEditor = `{
-	init: 'init',
+	init: "init",
 	states: {
 		init: {
-			LOADED: 'valid',
-			_entry: [initialize, auto('LOADED')]
+			LOADED: "valid",
+			_entry: [initialize, auto("LOADED")]
 		},
 		valid: { 
-			ADD_ELEMENT: 'addElement',
-			TEXT_CHANGED: 'updateText',
-			RESET: 'init'
+			ADD_ELEMENT: "addElement",
+			TEXT_CHANGED: "updateText",
+			RESET: "init"
 		},
 		addElement: {
-			FINISHED: 'valid',
-			_entry: [addElement, replaceText, url, auto('FINISHED')]
+			FINISHED: "valid",
+			_entry: [addElement, replaceText, url, auto("FINISHED")]
 		},
 		updateText: {
-			VALIDATED: 'replaceConfig',
-			INVALIDATED: 'invalid',
+			VALIDATED: "replaceConfig",
+			INVALIDATED: "invalid",
 			_entry: [updateText, validate]
 		},
 		replaceConfig: {
-			FINISHED: 'valid',
-			_entry: [replaceConfig, url, auto('FINISHED')]
+			FINISHED: "valid",
+			_entry: [replaceConfig, url, auto("FINISHED")]
 		},
 		invalid: {
-			TEXT_CHANGED: 'updateText',
-			RESET: 'init'
+			TEXT_CHANGED: "updateText",
+			RESET: "init"
 		}
 	}
 }`;
 
 const toast = `{
-	init: 'invisible',
+	init: "invisible",
 	states: {
 		visible: {
-			CLOSED: 'invisible',
-			OPENED: 'visible',
+			CLOSED: "invisible",
+			OPENED: "visible",
 			_entry: [
 				(s, values) => assign({ ...s.context, ...values }),
-				() => send({ type: 'CLOSED', delay: 6000 })
+				() => send({ type: "CLOSED", delay: 6000 })
 			]
 		},
-		invisible: { OPENED: 'visible' }
+		invisible: { OPENED: "visible" }
 	}
 }`;
 

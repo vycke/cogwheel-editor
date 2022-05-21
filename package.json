@@ -34,7 +34,6 @@
   "type": "module",
   "dependencies": {
     "cogwheel": "^3.0.0",
-    "mermaid": "^8.14.0",
-    "prismjs": "^1.26.0"
+    "mermaid": "^8.14.0"
   }
 }

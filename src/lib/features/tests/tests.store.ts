@@ -44,7 +44,7 @@ export const tests = derived<ReadableMachineStore<TestContext>, string>(
 		let syntax = '';
 
 		paths.forEach((path, i) => {
-			syntax += `test('${path.join('->')}'), () => {\n`;
+			syntax += `test("${path.join('->')}"), () => {\n`;
 			const _machine = machine<O>($store.context.config);
 			syntax += '\tconst _machine = machine(config);\n';
 			path.forEach((event) => {

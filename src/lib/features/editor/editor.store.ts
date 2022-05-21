@@ -99,7 +99,6 @@ const validateAction: EditorAction = function (state) {
 		machine(config);
 		return send({ type: 'VALIDATED', config } as ConfigEvent);
 	} catch (e) {
-		console.log(e.message);
 		return send({ type: 'INVALIDATED', error: e.message } as ErrorEvent);
 	}
 };
