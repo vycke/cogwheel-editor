@@ -2,18 +2,19 @@
 	import type { VisibilityStore } from '$lib/helpers/visibilityStore';
 
 	export let store: VisibilityStore;
+	let { state, send } = store;
 	export let title: string = '';
 </script>
 
-{#if $store.state === 'visible'}
-	<div class="dimmer" on:click|stopPropagation={() => store.send({ type: 'TOGGLE' })} />
+{#if $state.current === 'visible'}
+	<div class="dimmer" on:click|stopPropagation={() => send({ type: 'TOGGLE' })} />
 {/if}
 
-<div class="modal | bg-grey-4 border-grey-4 border-w-3 radius-0" data-state={$store.state}>
+<div class="modal | bg-grey-4 border-grey-4 border-w-3 radius-0" data-state={$state.current}>
 	<div class="flex-row items-center | bold">
 		{#if title}
 			<span class="flex-grow">{title}</span>
-			<button on:click={() => store.send({ type: 'TOGGLE' })} data-type="styleless">
+			<button on:click={() => send({ type: 'TOGGLE' })} data-type="styleless">
 				<svg
 					aria-hidden="true"
 					focusable="false"

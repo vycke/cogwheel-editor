@@ -5,13 +5,14 @@
 	import { commandModal, toggleCommandPanel } from './modal.store';
 
 	export let cmd = '';
+	let { state } = commandModal;
 	let ref: HTMLElement;
 	$: cmds = commands.filter((c) => c.key.includes(cmd.split(' ')[0].toLowerCase()));
 
 	function toggle() {
 		cmd = '';
 		toggleCommandPanel();
-		if ($commandModal.state === 'visible') ref.focus();
+		if ($state.current === 'visible') ref.focus();
 	}
 
 	function execute(e: KeyboardEvent) {

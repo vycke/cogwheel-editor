@@ -1,13 +1,20 @@
-import { derived, get } from 'svelte/store';
-import { editorStore, type EditorCtx } from '../editor/editor.store';
-import type { MachineStore } from '$lib/helpers/stateMachineStore';
+import { derived, get, type Readable } from 'svelte/store';
+import { editorStore } from '../editor/editor.store';
 import { machine } from 'cogwheel';
-import type { MachineConfig, O, Transition } from 'cogwheel/dist/types';
+import type { MachineConfig, MachineState, Transition } from 'cogwheel/dist/types';
 import { toast } from '../toast/toast.store';
+import type { ReadableMachineStore } from '$lib/helpers/stateMachineStore';
+
+type O = {
+	[key: string]: unknown;
+};
+type TestContext = {
+	config: MachineConfig<O, Event>;
+};
 
 // DFS algorithm to find all paths based on transition names. Once a state
 // is reached that is already covered, the path finishes.
-function getAllPaths(config: MachineConfig<O>): string[][] {
+function getAllPaths(config: MachineConfig<O, Event>): string[][] {
 	const paths: string[][] = [];
 
 	function iter(key: string, visited: string[], path: string[]) {
@@ -16,7 +23,7 @@ function getAllPaths(config: MachineConfig<O>): string[][] {
 		if (!Object.keys(transitions).length) paths.push([...path]);
 
 		Object.entries(transitions).forEach(([key, value]) => {
-			const target = typeof value === 'string' ? value : (value as Transition<O>).target;
+			const target = typeof value === 'string' ? value : (value as Transition<O, Event>).target;
 
 			if (visited.includes(target)) paths.push([...path, key]);
 			else iter(target, [...visited, target], [...path, key]);
@@ -29,27 +36,30 @@ function getAllPaths(config: MachineConfig<O>): string[][] {
 }
 
 // Derived store used to create the mermaid definition
-export const tests = derived<MachineStore<EditorCtx>, string>(editorStore, ($store, set) => {
-	const paths: string[][] = getAllPaths($store.context.config);
+export const tests = derived<ReadableMachineStore<TestContext>, string>(
+	editorStore.state,
+	($store, set) => {
+		const paths: string[][] = getAllPaths($store.context.config);
 
-	let syntax = '';
+		let syntax = '';
 
-	paths.forEach((path, i) => {
-		syntax += `test('${path.join('->')}'), () => {\n`;
-		const _machine = machine($store.context.config);
-		syntax += '\tconst _machine = machine(config);\n';
-		path.forEach((event) => {
-			_machine.send({ type: event });
-			syntax += `\t_machine.send({ type: "${event}" });\n`;
+		paths.forEach((path, i) => {
+			syntax += `test("${path.join('->')}"), () => {\n`;
+			const _machine = machine<O>($store.context.config);
+			syntax += '\tconst _machine = machine(config);\n';
+			path.forEach((event) => {
+				_machine.send({ type: event });
+				syntax += `\t_machine.send({ type: "${event}" });\n`;
+			});
+
+			syntax += `\texpect(_machine.current).toBe("${_machine.current}")\n`;
+			syntax += `}`;
+			if (i < paths.length - 1) syntax += '\n\n';
 		});
 
-		syntax += `\texpect(_machine.current).toBe("${_machine.current}")\n`;
-		syntax += `}`;
-		if (i < paths.length - 1) syntax += '\n\n';
-	});
-
-	set(syntax);
-});
+		set(syntax);
+	}
+);
 
 export async function copyTests() {
 	await navigator.clipboard.writeText(get(tests));

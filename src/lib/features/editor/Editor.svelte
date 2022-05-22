@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { copyConfig, editorStore as store, updateText } from './editor.store';
-	import Prism from '$lib/helpers/prism';
+	import { highlighter } from '$lib/helpers/highlighter';
+
+	import { copyConfig, editorStore, updateText } from './editor.store';
+	let { state } = editorStore;
 
 	function addTabs(e: HTMLTextAreaElement, tabs = 1, enter = false) {
 		const _before = e.value.slice(0, e.selectionStart);
@@ -38,9 +40,9 @@
 	}
 
 	// Reactive updated to the store.
-	export let text = $store.context.text;
+	export let text = $state.context.text;
 	$: updateText(text);
-	$: $store, _update($store);
+	$: $state, _update($state);
 </script>
 
 <div class="grid-1 flex-grow relative">
@@ -56,11 +58,11 @@
 		</svg>
 	</button>
 	<div class="wrapper | grid-1">
-		{#if $store.state === 'invalid'}
+		{#if $state.current === 'invalid'}
 			<span
 				class="absolute posb-0 posr-0 mb-000 mr-000 text-0 bg-danger lh-0 radius-00 p-000 text-grey-5"
 			>
-				Invalid configuration
+				{$state.context.error}
 			</span>
 		{/if}
 		<textarea
@@ -69,10 +71,9 @@
 			bind:value={text}
 			on:keydown={checkTab}
 		/>
-
 		<div class="viewer | grid-row-1 grid-col-1 p-0">
 			<pre aria-hidden="true" class="grid-row-1 grid-col-1 p-0"><code class="language-javascript"
-					>{@html Prism.highlight(text, Prism.languages.javascript, 'javascript')}
+					>{@html highlighter(text)}
 				</code>
 			</pre>
 		</div>
@@ -113,12 +114,10 @@
 	.viewer {
 		position: relative;
 	}
-
 	pre > code {
 		font-family: var(--monospace);
 		tab-size: 2;
 	}
-
 	pre {
 		z-index: 0;
 		overflow: none;

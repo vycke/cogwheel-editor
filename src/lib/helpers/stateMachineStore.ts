@@ -1,29 +1,28 @@
 import { machine as fsm } from 'cogwheel';
-import type { MachineConfig, Event } from 'cogwheel/dist/types';
-import { writable } from 'svelte/store';
-import type { Writable } from 'svelte/store';
+import type { MachineConfig, Event, MachineState } from 'cogwheel/dist/types';
+import { readable } from 'svelte/store';
+import type { Readable } from 'svelte/store';
 
 type O = {
 	[key: string]: unknown;
 };
 
-type Store<T extends O> = {
-	state: string;
-	context: T;
+export type ReadableMachineStore<T extends O> = Readable<MachineState<T>>;
+export type MachineStore<T extends O, E extends Event = Event> = {
+	state: ReadableMachineStore<T>;
+	send(event: E): void;
 };
 
-export type MachineStore<T extends O> = {
-	subscribe: Writable<Store<T>>['subscribe'];
-	send(event: Event): void;
-};
-
-export function machineStore<T extends O>(config: MachineConfig<T>): MachineStore<T> {
+export function machineStore<T extends O, E extends Event = Event>(
+	config: MachineConfig<T, E>
+): MachineStore<T, E> {
 	const machine = fsm(config);
-	const store: Writable<Store<T>> = writable({ state: machine.current, context: machine.context });
-
-	machine.listen(({ current, context }) => {
-		store.update(() => ({ state: current, context }));
+	const { current, id, context } = machine;
+	const state = readable({ current, id, context }, (set) => {
+		return machine.listen(({ current, context }) => {
+			set({ context, current, id });
+		});
 	});
 
-	return { subscribe: store.subscribe, send: machine.send };
+	return { state, send: machine.send };
 }

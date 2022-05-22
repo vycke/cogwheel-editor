@@ -1,4 +1,5 @@
 import { addNode, addTransition, copyConfig } from '../editor/editor.store';
+import { clearLog } from '../simulation/simulation.store';
 import { copyTests } from '../tests/tests.store';
 import { copyMermaid } from '../visualizer/visualizer.store';
 import { toggleCommandPanel } from './modal.store';
@@ -39,5 +40,10 @@ export const commands: Command[] = [
 		key: 'tests',
 		description: 'copy test configuration to clipboard',
 		callback: copyTests
+	},
+	{
+		key: 'clear',
+		description: 'clear the simulation log',
+		callback: clearLog
 	}
 ];

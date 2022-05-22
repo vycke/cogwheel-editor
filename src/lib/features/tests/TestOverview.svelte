@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { highlighter } from '$lib/helpers/highlighter';
+
 	import { copyTests, tests as store } from './tests.store';
-	import Prism from '$lib/helpers/prism';
+	// import Prism from '$lib/helpers/prism';
 </script>
 
 <div class="grid-1 flex-grow relative">
@@ -18,7 +20,7 @@
 	<div class="wrapper | grid-1">
 		<div class="grid-row-1 grid-col-1 p-0">
 			<pre aria-hidden="true"><code class="language-javascript"
-					>{@html Prism.highlight($store, Prism.languages.javascript, 'javascript')}
+					>{@html highlighter($store)}
     	</code></pre>
 		</div>
 	</div>

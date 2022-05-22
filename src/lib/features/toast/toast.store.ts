@@ -1,31 +1,41 @@
 import { send, assign } from 'cogwheel';
 import { machineStore } from '$lib/helpers/stateMachineStore';
-import type { MachineConfig, MachineState } from 'cogwheel/dist/types';
+import type { MachineConfig, Event, Action } from 'cogwheel/dist/types';
 
-export type Ctx = {
+type Variant = 'info' | 'warning' | 'danger' | 'success';
+
+export type ToastContext = {
 	label: string;
-	type: 'info' | 'warning' | 'danger' | 'success';
+	variant: Variant;
 };
 
-const config: MachineConfig<Ctx> = {
+type ToastEvent = Event & { label?: string; variant?: Variant };
+type ToastAction = Action<ToastContext, ToastEvent>;
+
+const autoCloseAction: ToastAction = function () {
+	return send({ type: 'CLOSED' }, 6000);
+};
+
+const toggleAction: ToastAction = function (s, { label, variant }) {
+	return assign({ ...s.context, label, variant });
+};
+
+const config: MachineConfig<ToastContext, ToastEvent> = {
 	init: 'invisible',
 	states: {
 		visible: {
 			CLOSED: 'invisible',
 			OPENED: 'visible',
-			_entry: [
-				(s: MachineState<Ctx>, values: Ctx) => assign({ ...s.context, ...values }),
-				(s: MachineState<Ctx>) => send({ type: 'CLOSED', payload: s.context, delay: 6000 })
-			]
+			_entry: [toggleAction, autoCloseAction]
 		},
 		invisible: { OPENED: 'visible' }
 	}
 };
 
-export const toastStore = machineStore<Ctx>(config);
+export const toastStore = machineStore<ToastContext, ToastEvent>(config);
 
-function _send(label: string, type: Ctx['type']) {
-	return toastStore.send({ type: 'OPENED', payload: { label, type } });
+function _send(label: string, variant: ToastContext['variant']) {
+	return toastStore.send({ type: 'OPENED', label, variant });
 }
 
 export const toast = {
