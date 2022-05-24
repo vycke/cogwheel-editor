@@ -27,7 +27,7 @@
 				<li class="flex-row items-center py-000 border-b-grey-4 gap-000">
 					<button
 						on:click={() => replace(example.config)}
-						class="pointer transition-300 text-00 radius-000 bg-grey-3 hover:bg-accent text-grey-0 hover:text-grey-0"
+						class="pointer transition-300 text-00 radius-000 bg-grey-3 hover:bg-primary hover:text-grey-5 text-grey-0 hover:text-grey-0"
 					>
 						{example.title}
 					</button>

@@ -8,7 +8,7 @@
 
 	onMount(() => {
 		if (!canvas) return;
-		mermaid.initialize({ theme: 'dark', themeVariables: { nodeBorder: '#1395ae' } });
+		mermaid.initialize({ theme: 'dark', themeVariables: { nodeBorder: '#8C90CE' } });
 		// Draw the mermaid definition
 		diagram.subscribe((def) => {
 			if (!def) return;
