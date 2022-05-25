@@ -33,7 +33,7 @@
   },
   "type": "module",
   "dependencies": {
-    "cogwheel": "^3.0.0",
+    "cogwheel": "^3.0.2",
     "mermaid": "^8.14.0"
   }
 }
