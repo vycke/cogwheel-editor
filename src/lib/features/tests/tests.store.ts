@@ -1,7 +1,7 @@
-import { derived, get, type Readable } from 'svelte/store';
+import { derived, get } from 'svelte/store';
 import { editorStore } from '../editor/editor.store';
 import { machine } from 'cogwheel';
-import type { MachineConfig, MachineState, Transition } from 'cogwheel/dist/types';
+import type { MachineConfig, Transition } from 'cogwheel/dist/types';
 import { toast } from '../toast/toast.store';
 import type { ReadableMachineStore } from '$lib/helpers/stateMachineStore';
 

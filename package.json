@@ -21,6 +21,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.1",
     "feo-css": "^2.0.0",
+    "jsdom": "^19.0.0",
     "prettier": "^2.5.1",
     "prettier-plugin-svelte": "^2.5.0",
     "sass": "^1.49.7",
@@ -34,6 +35,7 @@
   "type": "module",
   "dependencies": {
     "cogwheel": "^3.0.2",
-    "mermaid": "^8.14.0"
+    "mermaid": "^8.14.0",
+    "vitest-svelte-kit": "^0.0.6"
   }
 }

@@ -5,7 +5,13 @@ import preprocess from 'svelte-preprocess';
 const config = {
 	preprocess: preprocess(),
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		vite: {
+			test: {
+				globals: true,
+				environment: 'jsdom'
+			}
+		}
 	},
 	vite: {
 		optimizeDeps: { include: ['mermaid'] },
