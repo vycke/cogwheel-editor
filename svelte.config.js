@@ -7,17 +7,11 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		vite: {
+			optimizeDeps: { include: ['mermaid'] },
 			test: {
 				globals: true,
 				environment: 'jsdom'
 			}
-		}
-	},
-	vite: {
-		optimizeDeps: { include: ['mermaid'] },
-		test: {
-			globals: true,
-			environment: 'jsdom'
 		}
 	}
 };
